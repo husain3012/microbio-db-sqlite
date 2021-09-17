@@ -1,27 +1,43 @@
 {
-  "name": "node-desktop-app-template",
+  "name": "microbiology-db",
   "version": "1.0.0",
-  "description": "Simple Node.js Desktop Application Template using Electron and Bootstrap",
+  "description": "System to store sample records and generate reports for microbiology department",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "repository": "https://github.com/majikarp/node-desktop-app-template",
   "keywords": [
     "Electron",
     "Node",
-    "Template",
-    "Hackathon"
+    "Medical",
+    "Microbiology"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
   "dependencies": {
-    "bootstrap": "4.2.1",
-    "jquery": "3.3.1"
+    "axios": "^0.21.4",
+    "bootstrap": "^4.6.0",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "html-pdf": "^3.0.1",
+    "jquery": "^3.6.0",
+    "mongoose": "^6.0.5",
+    "morgan": "^1.10.0",
+    "node-localstorage": "^2.2.1",
+    "path": "^0.12.7",
+    "pdfkit": "^0.12.3"
   },
   "devDependencies": {
-    "browser-sync": "2.26.3",
-    "electron": "^4.0.4",
-    "gulp": "4.0.0"
-  }
+    "browser-sync": "^2.27.5",
+    "electron": "^14.0.0",
+    "electron-builder": "^22.11.7",
+    "electron-packager": "^15.3.0",
+    "electron-reloader": "^1.2.1",
+    "gulp": "^4.0.2"
+  },
+  "productName": "microbioDB"
 }

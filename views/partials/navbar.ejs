@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="user-settings">
+    <a type="button" class="navbar-brand" onclick="history.back()"><h1 class="fas fa-arrow-left"></h1> </a>
+    <a href="/" class="navbar-brand"><h1 class="fas fa-home"></h1></a>
+  </div>
+  <form action="/search" method="POST">
+    <div class="form-field">
+      <input class="form-control" type="text" name="sample_id" placeholder="Sample ID" />
+    </div>
+    <div class="form-field">
+      <input class="form-control" type="text" name="patientName" placeholder="Patient Name" />
+    </div>
+
+    <button class="btn btn-outline-dark" type="submit">Search</button>
+  </form>
+  <div class="user-settings">
+    <a href="/" class=""><h1 class="fas fa-user"></h1></a>
+  </div>
+</nav>

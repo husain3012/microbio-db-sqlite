@@ -1,0 +1,133 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+a,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  background-color: #4b6587;
+  justify-content: space-between;
+}
+.navbar form {
+  display: flex;
+  background-color: #c8c6c6;
+  padding: 10px;
+  border-radius: 5px;
+}
+.navbar form .form-field {
+  margin: auto 10px;
+}
+.add-new-entry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  border-radius: 100%;
+  background-color: #4b6587;
+  color: #f7f6f2;
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.add-new-entry:hover {
+  background-color: #f8485e;
+  transition: all 0.3s ease;
+  transform: scale(1.1);
+}
+.add-new-entry h1 {
+  margin: auto;
+  font-size: 50px;
+}
+
+/*********************************  */
+.card {
+  margin: 1rem 0;
+}
+.card-body {
+  padding: 0;
+}
+.record-list .card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.record-list .card-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid #a5a5a5;
+  padding: 0 10px;
+}
+.card-buttons button,
+.card-buttons a {
+  margin: 1rem 0;
+}
+
+.sample-info {
+  padding: 1rem;
+  border-right: 1px solid #a5a5a5;
+  width: 300px;
+  height: 100%;
+}
+.sensitivity-info {
+  padding: 1rem;
+
+  width: 100%;
+}
+
+.sample-info.blood {
+  background-color: #e68490;
+}
+.sample-info.urine {
+  background-color: #b5c7a6;
+}
+.sample-info.puss {
+  background-color: #fff491;
+}
+
+/* ******************* */
+.panel{
+  display: flex;
+  flex-direction: column;
+  border: #4b6587 1px solid;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+
+}
+.panel-body {
+  display: flex;
+  flex-direction: row;
+ justify-content: stretch;
+}
+.panel-body .sensi-item {
+  margin: 1rem;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.panel-body .sensi-item.S {
+  background-color: #e5ffb4;
+}
+.panel-body .sensi-item.I {
+  background-color: #ffd6b4;
+}
+.panel-body .sensi-item.R {
+  background-color: #fda7a7;
+}
+
+
+
+/* **************** */

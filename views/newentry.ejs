@@ -1,0 +1,60 @@
+<%-include("partials/header") %> <%-include("partials/navbar") %>
+
+<div class="container">
+  <form action="/add_new_entry" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Sample ID</label>
+      <input required name="sampleId" type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Patient Name</label>
+      <input required  name="patientName" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Age</label>
+      <input type="number" name="age" class="form-control" />
+    </div>
+    <div class="mb-3 form-radio">
+      <input name="sex" type="radio" class="form-check-input" value="m" />
+      <label class="form-check-label">Male</label>
+      <input name="sex" type="radio" class="form-check-input" value="f" />
+      <label class="form-check-label">Female</label>
+      <input name="sex" type="radio" class="form-check-input" value="o" />
+      <label class="form-check-label">Other</label>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputGroupSelect01">Specimen: </label>
+      <select required name="specimen" class="form-select">
+        <option value="" selected disabled hidden>Choose Specimen</option>
+        <option value="urine">Urine</option>
+        <option value="puss">Puss</option>
+        <option value="blood">Blood</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Specimen Received On:</label>
+      <input type="date" name="specimenDate" class="form-control" />
+    </div>
+
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="inputGroupSelect01">Department: </label>
+      <select required name="department" class="form-select">
+        <option value="" selected disabled hidden>Choose Department</option>
+        <option value="surgery">Surgery</option>
+        <option value="surgery">xxxx</option>
+        <option value="surgery">yyyy</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Physician/Surgeon</label>
+      <input name="physician" type="text" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Exam Required</label>
+      <input name="examRequired" type="text" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">NEXT</button>
+  </form>
+</div>
+<%-include("partials/footer") %>

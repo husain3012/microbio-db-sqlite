@@ -1,0 +1,57 @@
+<%-include('partials/header')%> <%-include('partials/navbar')%>
+
+<div class="container">
+  <br />
+  <br />
+  <br />
+  <br />
+  <form action="/" method="POST" class="form-group">
+    <div class="row">
+      <div class="col-md-5 col-12">
+        <label>Start Date: </label>
+        <input class="form-control" type="date" id="startDate" name="startDate" />
+      </div>
+      <div class="col-md-5 col-12">
+        <label>End Date: </label>
+        <input class="form-control" type="date" id="startDate" name="endDate" />
+      </div>
+      <div class="col-md-2 mt-auto col-12">
+        <button class="btn btn-primary" type="submit">Go</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="record-list">
+    <h1><%= records.length %> Record(s) Fetched</h1>
+    <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
+    <div class="card">
+      <div class="card-body">
+        <div class="sample-info <%=sample.specimen %>">
+          <h5 class="card-title"><strong><%= sample.sample_id %></strong></h5>
+          <h6 class="card-subtitle mb-2"><strong>Name:</strong> <%= sample.patientName %></h6>
+          <p class="card-text"><strong>Age: </strong> <%=sample.age %> <strong>Sex: </strong><%=sample.sex %></p>
+          <a href="#" class="card-link"><strong>Specimen: </strong> <%=sample.specimen %> </a>
+        </div>
+      </div>
+      <div class="sensitivity-info card-body">
+        <p class="card-text"><strong>Date: </strong> <%=new Date(sample.createdAt) %></p>
+        <hr />
+        <h5 class="card-title"><strong>Progress:</strong> <%= sample.progress %></h5>
+        <% if(sample.progress == "growth"){%>
+        <p class="card-text"><strong>Growth Time: </strong> <%=sample.sensitivity.growthTime %> (min) <strong>Type: </strong><%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
+
+        <% } %>
+      </div>
+      <div class="card-buttons">
+        <a class="btn btn-outline-primary" href="/update_progress/<%=sample.sample_id%>">Update Progress</a>
+        <a class="btn btn-primary" href="/sample_info/<%=sample.sample_id%>">More</a>
+      </div>
+    </div>
+
+    <% }) %> <% }%>
+
+    <br />
+    <br />
+  </div>
+</div>
+<%-include("partials/add-new") %> <%-include("partials/footer") %>

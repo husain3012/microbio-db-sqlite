@@ -1,37 +1,45 @@
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require("electron");
 
-let mainWindow
+const server = require("./app"); //ADD THIS
 
-function createWindow () {
+let mainWindow;
+
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
-    }
-  })
+      nodeIntegration: true,
+    },
+  });
 
-  mainWindow.loadFile('index.html')
+  mainWindow.webContents.openDevTools();
 
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
+
+  mainWindow.loadURL("http://localhost:3000"); //ADD THIS
+  mainWindow.on("closed", function () {
+    mainWindow = null;
+  });
 }
 
-app.on('ready', createWindow)
+app.on("ready", createWindow);
 
-app.on('resize', function(e,x,y){
+app.on("resize", function (e, x, y) {
   mainWindow.setSize(x, y);
 });
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit()
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") {
+    app.quit();
   }
-})
+});
 
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+// app.on("activate", function () {
+//   if (mainWindow === null) {
+//     createWindow();
+//   }
+// });
+
+// try {
+//   require('electron-reloader')(module)
+// } catch (_) {}

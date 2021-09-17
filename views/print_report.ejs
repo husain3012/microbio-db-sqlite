@@ -1,0 +1,119 @@
+<%-include('partials/header')%> <%-include('partials/navbar')%>
+
+<div id="print-content">
+  <style>
+    .report-table td {
+      border: 1px solid #a5a5a5;
+      text-align: center;
+    }
+
+    .report-table td .ab-sensi-container {
+      display: flex;
+      flex-direction: column;
+      height: 50px;
+      padding: 5px;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+
+  <h1></h1>
+  <% let current_ab = {} %>
+  <table class="report-table">
+    <% sample.sensitivity.staphylococcusPanel %> <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){ %>
+
+    <tr>
+      <td>
+        Staphylococcus Panel:
+        <br />
+        <%=sample.sensitivity.staphylococcusName%>
+      </td>
+      <% sample.sensitivity.staphylococcusPanel.forEach(item => current_ab[item.antib]= item.sensitivity); staphylococcusData.forEach(ab =>{ %>
+      <td>
+        <div class="ab-sensi-container">
+          <strong class="ab-heading"><%=ab.name %></strong>
+
+          <p><%= current_ab[ab.name] %></p>
+        </div>
+      </td>
+      <% }) %>
+    </tr>
+    <% } %> <% current_ab = {} %> <% if(typeof sample.sensitivity.streptococussPanel !== 'undefined' && sample.sensitivity.streptococussPanel.length > 0){ %>
+
+    <tr>
+      <td>
+        Streptococuss Panel:
+        <br />
+        <%=sample.sensitivity.streptococussName%>
+      </td>
+      <% sample.sensitivity.streptococussPanel.forEach(item => current_ab[item.antib]= item.sensitivity); streptococussData.forEach(ab =>{ %>
+      <td>
+        <div class="ab-sensi-container">
+          <strong class="ab-heading"><%=ab.name %></strong>
+
+          <p><%= current_ab[ab.name] %></p>
+        </div>
+      </td>
+      <% }) %>
+    </tr>
+    <% } %> <% current_ab = {} %><% if(typeof sample.sensitivity.gramNegativePanel !== 'undefined' && sample.sensitivity.gramNegativePanel.length > 0){ %>
+
+    <tr>
+      <td>
+        Gram Negative Panel:
+        <br />
+        <%=sample.sensitivity.gramNegativeName%>
+      </td>
+      <% sample.sensitivity.gramNegativePanel.forEach(item => current_ab[item.antib]= item.sensitivity); gramNegativeData.forEach(ab =>{ %>
+      <td>
+        <div class="ab-sensi-container">
+          <strong class="ab-heading"><%=ab.name %></strong>
+
+          <p><%= current_ab[ab.name] %></p>
+        </div>
+      </td>
+      <% }) %>
+    </tr>
+
+    <% } %> <% current_ab = {} %> <% if(typeof sample.sensitivity.pseudomonasPanel !== 'undefined' && sample.sensitivity.pseudomonasPanel.length > 0){ %>
+
+    <tr>
+      <td>
+        Pseudomonas Panel:
+        <br />
+        <%=sample.sensitivity.pseudomonasName%>
+      </td>
+      <% sample.sensitivity.pseudomonasPanel.forEach(item => current_ab[item.antib]= item.sensitivity); pseudomonasData.forEach(ab =>{ %>
+      <td>
+        <div class="ab-sensi-container">
+          <strong class="ab-heading"><%=ab.name %></strong>
+
+          <p><%= current_ab[ab.name] %></p>
+        </div>
+      </td>
+      <% }) %>
+    </tr>
+
+    <% } %> <% current_ab = {} %>
+  </table>
+</div>
+<!-- <a href="/api/sample/report/<%= sample.sample_id %>" id="print-content" class="btn btn-outline-dark">Print Report</a> -->
+
+<%-include("partials/footer") %>
+<!-- <script src="/plugins/jspdf.min.js"></script> -->
+
+<!-- <script>
+
+var doc = new jsPDF();
+var elementHTML = $('#print-content').html();
+var specialElementHandlers = {
+    '#elementH': function (element, renderer) {
+        return true;
+    }
+};
+doc.fromHTML(elementHTML);
+
+// Save the PDF
+doc.save('<%=sample.sample_id%>_report.pdf')
+
+</script> -->

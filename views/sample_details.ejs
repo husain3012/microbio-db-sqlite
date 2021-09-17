@@ -1,0 +1,71 @@
+<%-include('partials/header')%> <%-include('partials/navbar')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1><%=sample.sample_id %></h1>
+    </div>
+    <div class="col-md-12">
+      <h3>Progress: <%=sample.progress %></h3>
+
+      <%if(sample.sensitivity){ %>
+
+      <div class="sensitivity-table-container">
+        <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){%>
+        <div class="panel">
+          <h5>Staphylococcus Panel: <em><%=sample.sensitivity.staphylococcusName %></em></h5>
+          <div class="panel-body">
+            <% sample.sensitivity.staphylococcusPanel.forEach(ab=>{%>
+            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+            <% }) %>
+          </div>
+
+        </div>
+          <% } %>
+
+        <% if(typeof sample.sensitivity.streptococussPanel !== 'undefined' && sample.sensitivity.streptococussPanel.length > 0){%>
+        <div class="panel">
+          <h5>Streptococuss Panel: <em><%=sample.sensitivity.streptococussName %></em></h5>
+          <div class="panel-body">
+            <% sample.sensitivity.streptococussPanel.forEach(ab=>{%>
+            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+            <% }) %>
+          </div>
+        </div>
+          <% } %>
+
+        <% if(typeof sample.sensitivity.gramNegativePanel !== 'undefined' && sample.sensitivity.gramNegativePanel.length > 0){%>
+        <div class="panel">
+          <h5>Gram-Negative Panel: <em> <%=sample.sensitivity.gramNegativeName %></em></h5>
+          <div class="panel-body">
+            <% sample.sensitivity.gramNegativePanel.forEach(ab=>{%>
+            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+            <% }) %>
+          </div>
+        </div>
+          <% } %>
+
+        <% if(typeof sample.sensitivity.pseudomonasPanel !== 'undefined' && sample.sensitivity.pseudomonasPanel.length > 0){%>
+        <div class="panel">
+          <h5>Pseudomonas Panel: <em><%=sample.sensitivity.pseudomonasName %></em></h5>
+          <div class="panel-body">
+            <% sample.sensitivity.pseudomonasPanel.forEach(ab=>{%>
+            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+            <% }) %>
+          </div>
+        </div>
+          <% } %>
+      </div>
+      <% } %>
+
+      <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-outline-dark" >Print Report</a>
+    </div>
+  </div>
+  <button class="btn btn-outline-dark" onclick="window.history.back()">Back</button>
+</div>
+<%-include("partials/add-new") %> <%-include("partials/footer") %>
+
+
