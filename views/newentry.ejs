@@ -8,7 +8,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Patient Name</label>
-      <input required  name="patientName" type="text" class="form-control" />
+      <input required name="patientName" type="text" class="form-control" />
     </div>
     <div class="mb-3">
       <label class="form-label">Age</label>
@@ -24,12 +24,14 @@
     </div>
     <div class="input-group mb-3">
       <label class="input-group-text" for="inputGroupSelect01">Specimen: </label>
-      <select required name="specimen" class="form-select">
+      <select required id="specimen-type" name="specimen" class="form-select">
         <option value="" selected disabled hidden>Choose Specimen</option>
         <option value="urine">Urine</option>
         <option value="puss">Puss</option>
         <option value="blood">Blood</option>
+        <option id="other-specimen-value" value="other">Other</option>
       </select>
+      <input id="other-specimen"  type="text" class="form-control" placeholder="Specimen Type" />
     </div>
 
     <div class="mb-3">
@@ -58,3 +60,18 @@
   </form>
 </div>
 <%-include("partials/footer") %>
+<script>
+  $("#other-specimen").hide();
+  $("#specimen-type").on("change", function () {
+    if ($(this).val() == "other") {
+      $("#other-specimen").show();
+      $("#other-specimen").attr("required", true);
+      $("#other-specimen").on("change", function () {
+        $("#other-specimen-value").val($(this).val());
+      });
+    } else {
+      $("#other-specimen").hide();
+      $("#other-specimen-value").attr("required", false);
+    }
+  });
+</script>

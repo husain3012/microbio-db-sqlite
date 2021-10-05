@@ -44,6 +44,9 @@ const sampleSchema = new mongoose.Schema(
     progress: {
       type: String,
     },
+    remarks:{
+      type: String
+    },
     sensitivity: {
       type: sensitivitySchema,
     },

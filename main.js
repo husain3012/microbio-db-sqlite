@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const { app, BrowserWindow } = require("electron");
 
 const server = require("./app"); //ADD THIS
@@ -14,7 +16,6 @@ function createWindow() {
   });
 
   mainWindow.webContents.openDevTools();
-
 
   mainWindow.loadURL("http://localhost:3000"); //ADD THIS
   mainWindow.on("closed", function () {
