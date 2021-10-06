@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 const sampleRoute = require("./routes/sample.routes");
 const antibioticRoutes = require("./routes/antibiotics.routes");
+const antibiogram = require("./routes/antibiogram.routes");
 var LocalStorage = require("node-localstorage").LocalStorage;
 var localStorage = new LocalStorage("./sessionData");
 const morgan = require("morgan");
@@ -216,6 +217,8 @@ app.get("/printTemplate/:sample_id", (req, res) => {
 
 app.use("/api", sampleRoute);
 app.use("/api", antibioticRoutes);
+app.use("/api", antibiogram);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

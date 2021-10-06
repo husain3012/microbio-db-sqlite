@@ -1,6 +1,5 @@
 const Sample = require("../models/sample.model");
 
-// const Student = require('../models/student.models');
 const axios = require("axios");
 const { dialog } = require("electron");
 
