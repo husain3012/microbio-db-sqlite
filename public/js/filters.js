@@ -20,6 +20,7 @@ const handleFilters = (e) => {
 };
 
 const filterData = () => {
+  let count = 0;
   $(".sample-card").each(function (i, sample) {
     let sampleProp = {};
     if (appliedFilter.age) {
@@ -39,10 +40,13 @@ const filterData = () => {
     }
     if (_.isEqual(appliedFilter, sampleProp)) {
       $(sample).show();
+      count++;
     } else {
       $(sample).hide();
     }
   });
+//   console.log(count);
+ console.log($(".sample-count").text(count)) ;
 };
 
 $("#filters").on("change", handleFilters);

@@ -22,7 +22,7 @@
   </form>
 
   <div class="record-list">
-    <h1><%= records.length %> Record(s) Fetched</h1>
+    <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
     <div id="filters">
       <div class="row">
         <div class="col-md-3 col-12">
@@ -59,6 +59,7 @@
         </div>
       </div>
     </div>
+    
     <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
     <div class="card sample-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
       <div class="card-body">
