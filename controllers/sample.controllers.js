@@ -153,57 +153,63 @@ exports.findSample = async (req, res) => {
 };
 
 exports.randomSampleGen = async (req, res) => {
+  let count = req.body.count || 1;
   let i;
-  const sex = ['f', 'm', 'o'], specimen= ['puss', 'blood', 'urine'];
-  const dept= ['Surgery', 'xxxx', 'yyyy'], sensitivityArr= ['S', 'I', 'R'];
-  const names= ['Adrak', 'Lahsun', 'Doraemon', 'Chota Bheem', 'Raju', 'Mirchi', 'Doc Oct', 'May Parker', 'Uncle Ben'];
-  let date, end = new Date(), sensitivity= {}, staphPanel= [];
+  const sex = ["f", "m", "o"],
+    specimen = ["puss", "blood", "urine"];
+  const dept = ["Surgery", "xxxx", "yyyy"],
+    sensitivityArr = ["S", "I", "R"];
+  const names = ["Adrak", "Lahsun", "Doraemon", "Chota Bheem", "Raju", "Mirchi", "Doc Oct", "May Parker", "Uncle Ben"];
+  let date,
+    end = new Date(),
+    sensitivity = {},
+    staphPanel = [];
 
-  for( i= 0; i<2000; i++) {
+  for (i = 0; i < count; i++) {
     date = new Date(Math.floor(Math.random() * end.getTime()));
-    sensitivity= {
+    sensitivity = {
       growthTime: Math.floor(Math.random() * 60),
       aerobic: true,
       anaerobic: false,
       bacterialCount: Math.floor(Math.random() * 1000),
-      staphylococcusName: 'Staphylococcus',
+      staphylococcusName: "Staphylococcus",
       staphylococcusPanel: staphPanel,
-      streptococcussName: '',
+      streptococcussName: "",
       streptococcussPanel: [],
-      gramNegativeName: '',
+      gramNegativeName: "",
       gramNegativePanel: [],
-      pseudomonasName: '',
+      pseudomonasName: "",
       pseudomonasPanel: [],
     };
     // This array can be automated (by loops) to consist of all the panel (by array) names if needed
     staphPanel = [
       {
-        antib: 'AZM',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
+        antib: "AZM",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
       {
-        antib: 'CD',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
+        antib: "CD",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
       {
-        antib: 'CX',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
+        antib: "CX",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
       {
-        antib: 'AMX',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
+        antib: "AMX",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
       {
-        antib: 'AMC',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
+        antib: "AMC",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
       {
-        antib: 'COT',
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)]
-      }
+        antib: "COT",
+        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
+      },
     ];
     const sample = new Sample({
-      sample_id: Math.floor(Math.random() * 1000000),
+      sample_id: new Date().getTime(),
       patientName: names[Math.floor(Math.random() * names.length)],
       age: 10 + Math.floor(Math.random() * 90),
       sex: sex[Math.floor(Math.random() * sex.length)],
@@ -213,21 +219,10 @@ exports.randomSampleGen = async (req, res) => {
       department: dept[Math.floor(Math.random() * dept.length)],
       physician: names[Math.floor(Math.random() * names.length)],
       // diagnosis: req.body.diagnosis,
-      examRequired: 'Analysis',
-      progress: 'growth',
-      sensitivity: sensitivity
+      examRequired: "Analysis",
+      progress: "growth",
+      sensitivity: sensitivity,
     });
-    sample.save((err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      } else {
-        return res.json({
-          status: true,
-          message: "New entry created!",
-          data: result,
-        });
-      }
-    });
+    sample.save();
   }
-}
+};
