@@ -23,14 +23,50 @@
 
   <div class="record-list">
     <h1><%= records.length %> Record(s) Fetched</h1>
+    <div id="filters">
+      <div class="row">
+        <div class="col-md-3 col-12">
+          <label class="form-label">Sex</label>
+          <select filter="sex" class="form-control" id="filter-select-sex">
+            <option value="all">All</option>
+            <option value="m">Male</option>
+            <option value="f">Female</option>
+            <option value="o">Others</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-12">
+          <label class="form-label">Progress</label>
+          <select filter="progress" class="form-control" id="filter-select-growth">
+            <option value="all">All</option>
+            <option value="growth">growth</option>
+            <option value="contaminated">contaminated</option>
+            <option value="sterile">sterile</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-12">
+          <label class="form-label">Specimen</label>
+
+          <select filter="specimen" class="form-control" id="filter-select-specimen">
+            <option value="all">All</option>
+            <option value="puss">Puss</option>
+            <option value="urine">Urine</option>
+            <option value="blood">Blood</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-12">
+          <label class="form-label">Age</label>
+          <input filter="age" class="form-control" type="text" id="filter-select-age" placeholder="23-40" />
+        </div>
+      </div>
+    </div>
     <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
-    <div class="card">
+    <div class="card sample-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
       <div class="card-body">
         <div class="sample-info <%=sample.specimen %>">
           <h5 class="card-title"><strong><%= sample.sample_id %></strong></h5>
           <h6 class="card-subtitle mb-2"><strong>Name:</strong> <%= sample.patientName %></h6>
-          <p class="card-text"><strong>Age: </strong> <%=sample.age %> <strong>Sex: </strong><%=sample.sex %></p>
-          <a href="#" class="card-link"><strong>Specimen: </strong> <%=sample.specimen %> </a>
+          <p class="card-text"><strong>Age: </strong> <%=sample.age %> <strong>Sex: </strong><span class="sex"><%=sample.sex %></span></p>
+          <a href="#" class="card-link"><strong>Specimen: </strong><span class="specimen"><%=sample.specimen %></span> </a>
         </div>
       </div>
       <div class="sensitivity-info card-body">
@@ -55,3 +91,5 @@
   </div>
 </div>
 <%-include("partials/add-new") %> <%-include("partials/footer") %>
+
+<script src="js/filters.js"></script>

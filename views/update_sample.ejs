@@ -9,7 +9,7 @@
       <select id="sample-progress" required name="progress" class="form-select">
         <option  <%=!sample.progress&&"selected"%> disabled hidden>Select Progress</option>
         <option <%=(sample.progress==="sterile")&&"selected"%>  value="sterile">Sterile</option>
-        <option <%=(sample.progress==="contaiminated")&&"selected"%>  value="contaiminated">Contaiminated</option>
+        <option <%=(sample.progress==="contaminated")&&"selected"%>  value="contaminated">Contaminated</option>
         <option <%=(sample.progress==="growth")&&"selected"%>  value="growth">Growth</option>
       </select>
     </div>
