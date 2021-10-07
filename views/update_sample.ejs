@@ -13,6 +13,12 @@
         <option <%=(sample.progress==="growth")&&"selected"%>  value="growth">Growth</option>
       </select>
     </div>
+    <div id="sample-contaminated">
+      <div class="mb-3">
+        <label class="form-label">Remarks</label>
+        <textarea class="form-control" name="remarks" rows="3"><%=sample.remarks%></textarea>
+      </div>
+    </div>
     <div id="sample-growth">
       <div class="mb-3">
         <label class="form-label">Growth Time (minutes)</label>

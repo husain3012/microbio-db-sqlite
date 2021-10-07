@@ -82,6 +82,7 @@ app.get("/update_progress/:sample_id", (req, res) => {
 
 app.post("/update_progress/", (req, res) => {
   const data = req.body;
+  console.log(data);
   axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
     const staphylococcusData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "staphylococcus");
     const streptococussData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "streptococuss");
@@ -140,15 +141,11 @@ app.post("/update_progress/", (req, res) => {
       gramNegativePanel,
       pseudomonasPanel,
     };
-    console.log(sensitivity);
-    // for (var key in sensitivity) {
-    //   if (sensitivity.hasOwnProperty(key)) {
-    //     if (sensitivity[key] == null) delete sensitivity[key];
-    //   }
-    // }
+    
     const formattedData = {
       sample_id: data.sample_id,
       progress: data.progress,
+      remarks: data.remarks,
       sensitivity,
     };
 

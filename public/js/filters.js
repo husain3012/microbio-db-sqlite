@@ -45,8 +45,7 @@ const filterData = () => {
       $(sample).hide();
     }
   });
-//   console.log(count);
- console.log($(".sample-count").text(count)) ;
+$(".sample-count").text(count) ;
 };
 
 $("#filters").on("change", handleFilters);

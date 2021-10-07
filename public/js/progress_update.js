@@ -2,6 +2,7 @@ $(function () {
   $(".panel-reaction-tables").hide();
 
   $("#sample-growth").hide();
+  $("#sample-contaminated").hide();
 
   $(".bacteria-panel").each((i) => {
     let panel = $(".bacteria-panel")[i];
@@ -18,7 +19,6 @@ $(function () {
     $("#sample-growth").show();
     $(".bacteria-panel").on("click", (e) => {
       let panel = e.target;
-      console.log(panel.value);
       if ($(panel).is(":checked")) {
         $("#" + panel.value).show();
         $("#" + panel.value).addClass("d-flex");
@@ -29,12 +29,17 @@ $(function () {
         $(`#${panel.value} input`).prop("value", "");
       }
     });
+  } else if (progress == "contaminated") {
+    $("#sample-contaminated").show();
   }
 
   $("#sample-progress").on("change", (e) => {
     let progress = e.target.value;
     if (progress == "growth") {
       $("#sample-growth").show();
+      $("#sample-contaminated").hide();
+      $("#sample-contaminated textarea").text("");
+
       $(".bacteria-panel").on("click", (e) => {
         let panel = e.target;
         console.log(panel.value);
@@ -48,10 +53,20 @@ $(function () {
           $(`#${panel.value} input`).prop("value", "");
         }
       });
-    } else {
+    } else if (progress == "contaminated") {
       $("#sample-growth").hide();
+      $("#sample-contaminated").show();
       $("#sample-growth input[type=radio]").prop("checked", false);
       $("#sample-growth input[type=text]").prop("value", "");
+      $("#sample-growth input[type=number]").prop("value", "");
+    } else {
+      $("#sample-contaminated").hide();
+      $("#sample-growth").hide();
+      $("#sample-contaminated textarea").text("");
+
+      $("#sample-growth input[type=radio]").prop("checked", false);
+      $("#sample-growth input[type=text]").prop("value", "");
+      $("#sample-growth input[type=number]").prop("value", "");
     }
   });
 });

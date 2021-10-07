@@ -56,13 +56,13 @@ a:hover {
 .card-body {
   padding: 0;
 }
-.record-list .card {
+#record-list .card {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
 
-.record-list .card-buttons {
+#record-list .card-buttons {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,7 +97,7 @@ a:hover {
 }
 
 /* ******************* */
-.panel{
+.panel {
   display: flex;
   flex-direction: column;
   border: #4b6587 1px solid;
@@ -105,12 +105,11 @@ a:hover {
   padding: 1rem;
   margin: 1rem 0;
   width: 100%;
-
 }
 .panel-body {
   display: flex;
   flex-direction: row;
- justify-content: stretch;
+  justify-content: stretch;
 }
 .panel-body .sensi-item {
   margin: 1rem;
@@ -128,6 +127,9 @@ a:hover {
   background-color: #fda7a7;
 }
 
-
-
 /* **************** */
+
+#record-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}

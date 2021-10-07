@@ -21,7 +21,7 @@
     </div>
   </form>
 
-  <div class="record-list">
+  <div id="record-list">
     <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
     <div id="filters">
       <div class="row">
@@ -59,33 +59,47 @@
         </div>
       </div>
     </div>
-    
-    <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
-    <div class="card sample-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
-      <div class="card-body">
-        <div class="sample-info <%=sample.specimen %>">
-          <h5 class="card-title"><strong><%= sample.sample_id %></strong></h5>
-          <h6 class="card-subtitle mb-2"><strong>Name:</strong> <%= sample.patientName %></h6>
-          <p class="card-text"><strong>Age: </strong> <%=sample.age %> <strong>Sex: </strong><span class="sex"><%=sample.sex %></span></p>
-          <a href="#" class="card-link"><strong>Specimen: </strong><span class="specimen"><%=sample.specimen %></span> </a>
-        </div>
-      </div>
-      <div class="sensitivity-info card-body">
-        <p class="card-text"><strong>Date: </strong> <%=new Date(sample.createdAt) %></p>
-        <hr />
-        <h5 class="card-title"><strong>Progress:</strong> <%= sample.progress %></h5>
-        <% if(sample.progress == "growth"){%>
-        <p class="card-text"><strong>Growth Time: </strong> <%=sample.sensitivity.growthTime %> (min) <strong>Type: </strong><%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
-
-        <% } %>
-      </div>
-      <div class="card-buttons">
-        <a class="btn btn-outline-primary" href="/update_progress/<%=sample.sample_id%>">Update Progress</a>
-        <a class="btn btn-primary" href="/sample_info/<%=sample.sample_id%>">More</a>
-      </div>
+    <div id="sorting" class="d-flex justify-content-center mt-2">
+      <button class="sort form-label btn btn btn-outline-dark me-2" data-sort="date">Sort by date</button>
+      <button class="sort form-label btn btn-outline-dark me-2" data-sort="name">Sort by name</button>
+      <button class="sort form-label btn btn btn-outline-dark me-2" data-sort="age">Sort by age</button>
+      <button class="sort form-label btn btn btn-outline-dark me-2" data-sort="sample-id">Sort by id</button>
     </div>
 
-    <% }) %> <% }%>
+    <ul class="list">
+      <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
+      <li>
+        <!-- <h5 class="age"><%=sample.age %></h5> -->
+        <div class="card sample-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
+          <div class="card-body">
+            <div class="sample-info <%=sample.specimen %>">
+              <h5 class="card-title"><strong class="sample-id"><%= sample.sample_id %></strong></h5>
+              <h6 class="card-subtitle mb-2"><strong>Name:</strong><span class="name"><%= sample.patientName %></span></h6>
+              <p class="card-text"><strong>Age: </strong><span class="age"><%=sample.age %></span> <strong>Sex: </strong><span class="sex"><%=sample.sex %></span></p>
+              <a href="#" class="card-link"><strong>Specimen: </strong><span class="specimen"><%=sample.specimen %></span> </a>
+            </div>
+          </div>
+          <div class="sensitivity-info card-body">
+            <p class="card-text"><strong>Date: </strong><span data-timestamp="<%= new Date(sample.createdAt).getTime()%>" class="date"><%=new Date(sample.createdAt) %></span></p>
+            <hr />
+            <h5 class="card-title"><strong>Progress:</strong> <%= sample.progress %></h5>
+            <% if(sample.progress == "growth"){%>
+            <p class="card-text"><strong>Growth Time: </strong> <%=sample.sensitivity.growthTime %> (min) <strong>Type: </strong><%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
+
+            <% } %> <% if(sample.remarks){ %>
+            <strong>Remarks:</strong>
+            <p><%= sample.remarks %></p>
+            <%} %>
+          </div>
+          <div class="card-buttons">
+            <a class="btn btn-outline-primary" href="/update_progress/<%=sample.sample_id%>">Update Progress</a>
+            <a class="btn btn-primary" href="/sample_info/<%=sample.sample_id%>">More</a>
+          </div>
+        </div>
+      </li>
+
+      <% }) %> <% }%>
+    </ul>
 
     <br />
     <br />
@@ -94,3 +108,11 @@
 <%-include("partials/add-new") %> <%-include("partials/footer") %>
 
 <script src="js/filters.js"></script>
+
+<script>
+  var options = {
+    valueNames: ["name", "age", { name: "date", attr: "data-timestamp" }, "sample-id"],
+  };
+
+  var sampleList = new List("record-list", options);
+</script>
