@@ -13,6 +13,7 @@ a:hover {
   flex-direction: row;
   background-color: #4b6587;
   justify-content: space-between;
+  padding: .5rem;
 }
 .navbar form {
   display: flex;
@@ -28,10 +29,10 @@ a:hover {
   justify-content: center;
   align-items: center;
   position: fixed;
-  right: 50px;
-  bottom: 50px;
+  right: 40px;
+  bottom: 40px;
   border-radius: 100%;
-  background-color: #4b6587;
+  background-color: #4b6587dd;
   color: #f7f6f2;
   padding: 10px;
   width: 80px;

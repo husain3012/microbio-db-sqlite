@@ -1,0 +1,3 @@
+$('#sortMenuBtn').click(() => {
+  $('#sortMenu').slideToggle();
+})
