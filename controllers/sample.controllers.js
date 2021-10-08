@@ -164,15 +164,20 @@ exports.randomSampleGen = async (req, res) => {
     end = new Date(),
     sensitivity = {},
     staphPanel = [];
-
+  let randomSamples = [];
   for (i = 0; i < count; i++) {
     date = new Date(Math.floor(Math.random() * end.getTime()));
+    let createdDate = new Date();
+    createdDate.setMonth(createdDate.getMonth() - Math.floor(Math.random() * 48));
+    createdDate.setMonth(createdDate.getMonth() - Math.floor(Math.random() * 25));
+    let bacterias = ["Staphylococcus", "Staphylococcus2", "Staphylococcus3"];
+
     sensitivity = {
       growthTime: Math.floor(Math.random() * 60),
       aerobic: true,
       anaerobic: false,
       bacterialCount: Math.floor(Math.random() * 1000),
-      staphylococcusName: "Staphylococcus",
+      staphylococcusName: bacterias[Math.floor(Math.random() * bacterias.length)],
       staphylococcusPanel: staphPanel,
       streptococcussName: "",
       streptococcussPanel: [],
@@ -208,12 +213,13 @@ exports.randomSampleGen = async (req, res) => {
         sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
     ];
-    const sample = new Sample({
-      sample_id: new Date().getTime(),
+    const sample = {
+      sample_id: new Date().getTime() + (i+1 )*(i+1)*10000000,
       patientName: names[Math.floor(Math.random() * names.length)],
       age: 10 + Math.floor(Math.random() * 90),
       sex: sex[Math.floor(Math.random() * sex.length)],
       // cadsNumber: req.body.cadsNumber,
+      createdAt: createdDate,
       specimen: specimen[Math.floor(Math.random() * specimen.length)],
       sampleDate: date,
       department: dept[Math.floor(Math.random() * dept.length)],
@@ -222,7 +228,17 @@ exports.randomSampleGen = async (req, res) => {
       examRequired: "Analysis",
       progress: "growth",
       sensitivity: sensitivity,
-    });
-    sample.save();
+    };
+    randomSamples.push(sample);
   }
+  Sample.insertMany(randomSamples, (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    return res.json({
+      status: true,
+      message: result.length + " records inserted!",
+      data: result,
+    });
+  });
 };

@@ -141,7 +141,7 @@ app.post("/update_progress/", (req, res) => {
       gramNegativePanel,
       pseudomonasPanel,
     };
-    
+
     const formattedData = {
       sample_id: data.sample_id,
       progress: data.progress,
@@ -212,10 +212,24 @@ app.get("/printTemplate/:sample_id", (req, res) => {
   });
 });
 
+app.get("/antibiogram", (req, res) => {
+  res.render("antibiogram", { antibiogram });
+});
+
+app.post("/antibiogram", (req, res) => {
+  const bacteria = req.body.bacteria;
+
+  axios.get(serverRoot + "/api/antibiogram/bacteria?bacteria=" + bacteria).then((response) => {
+    if (response.status) {
+      console.log(response.data);
+      res.render("antibiogram", { antibiogram: response.data });
+    }
+  });
+});
+
 app.use("/api", sampleRoute);
 app.use("/api", antibioticRoutes);
 app.use("/api", antibiogram);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

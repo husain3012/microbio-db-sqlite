@@ -98,7 +98,9 @@
           </div>
           <div class="sensitivity-info card-body">
             <p class="card-text"><strong>Date: </strong><span data-timestamp="<%= new Date(sample.createdAt).getTime()%>" class="date"><%=new Date(sample.createdAt) %></span></p>
+            
             <hr />
+            <p class="sample-date" data-timestamp="<%= new Date(sample.sampleDate).getTime()%>"></p>
             <h5 class="card-title"><strong>Progress:</strong> <%= sample.progress %></h5>
             <% if(sample.progress == "growth"){%>
             <p class="card-text"><strong>Growth Time: </strong> <%=sample.sensitivity.growthTime %> (min) <strong>Type: </strong><%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
@@ -129,7 +131,7 @@
 
 <script>
   var options = {
-    valueNames: ["name", "age", { name: "date", attr: "data-timestamp" }, "sample-id"],
+    valueNames: ["name", "age", { name: "date", attr: "data-timestamp" }, { name: "sample-date", attr: "data-timestamp" }, "sample-id"],
   };
 
   var sampleList = new List("record-list", options);

@@ -1,0 +1,28 @@
+<%-include("partials/header") %> <%-include("partials/navbar") %>
+
+<div class="container">
+  <form id="antibiogram-form" method="" action="">
+    <div class="row">
+      <div class="col-md-3 col-12">
+        <label class="form-label">Start Date: </label>
+        <input class="form-control" type="date" id="startDate" name="startDate" />
+      </div>
+      <div class="col-md-3 col-12">
+        <label class="form-label">End Date: </label>
+        <input class="form-control" type="date" id="startDate" name="endDate" />
+      </div>
+      <div class="col-md-3 col-12">
+        <label class="form-label">Enter Bacteria Name:</label>
+        <input class="form-control" type="text" name="bacteria" />
+      </div>
+      <div class="col-md-3 col-12">
+        <button class="btn btn-primary m-auto">Get Reports</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <canvas id="myChart" width="500" height="200"></canvas>
+</div>
+<%-include("partials/footer") %>
+<script src="/js/antibiogram.js"></script>
