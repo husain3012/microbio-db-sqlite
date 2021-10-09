@@ -86,6 +86,7 @@ exports.getByDate = async (req, res) => {
   console.log(endDate);
 
   Sample.find({ createdAt: { $gte: startDate, $lte: endDate } })
+    // .limit(500)
     .sort({ createdAt: -1 })
     .exec((err, result) => {
       if (err) {
@@ -214,7 +215,7 @@ exports.randomSampleGen = async (req, res) => {
       },
     ];
     const sample = {
-      sample_id: new Date().getTime() + (i+1 )*(i+1)*10000000,
+      sample_id: new Date().getTime() + (i + 1) * (i + 1) * 10000000,
       patientName: names[Math.floor(Math.random() * names.length)],
       age: 10 + Math.floor(Math.random() * 90),
       sex: sex[Math.floor(Math.random() * sex.length)],
