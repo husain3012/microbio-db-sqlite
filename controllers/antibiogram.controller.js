@@ -18,46 +18,7 @@ exports.bacteriaAntibiogram = async (req, res) => {
     let atb_data = {};
 
     result.forEach((sample) => {
-      // staphylococcusName
-      if (sample.sensitivity.staphylococcusName === bacteria) {
-        sample.sensitivity.staphylococcusPanel.forEach((atb) => {
-          !atb_data[atb.antib] && (atb_data[atb.antib] = {});
-          if (atb.sensitivity === "S") {
-            atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
-          }
-          atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
-        });
-      }
-      // streptococcusName
-      if (sample.sensitivity.streptococcusName === bacteria) {
-        sample.sensitivity.streptococcusPanel.forEach((atb) => {
-          !atb_data[atb.antib] && (atb_data[atb.antib] = {});
-          if (atb.sensitivity === "S") {
-            atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
-          }
-          atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
-        });
-      }
-      // gramPositiveName
-      if (sample.sensitivity.gramPositiveName === bacteria) {
-        sample.sensitivity.gramPositivePanel.forEach((atb) => {
-          !atb_data[atb.antib] && (atb_data[atb.antib] = {});
-          if (atb.sensitivity === "S") {
-            atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
-          }
-          atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
-        });
-      }
-      // pseudomonasName
-      if (sample.sensitivity.pseudomonasName === bacteria) {
-        sample.sensitivity.pseudomonasPanel.forEach((atb) => {
-          !atb_data[atb.antib] && (atb_data[atb.antib] = {});
-          if (atb.sensitivity === "S") {
-            atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
-          }
-          atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
-        });
-      }
+      calculateAntibiogram(sample, bacteria, atb_data);
     });
 
     return res.json(atb_data);
@@ -75,8 +36,49 @@ exports.yearlyAntibiogram = async (req, res) => {
   }
 
   async function calcYearData() {
-    let calculate = new Promise(function (myResolve, myReject) {
-      myResolve("I love You !!");
+    let calculate = new Promise(function (myResolve, myReject) {});
+  }
+};
+
+const calculateAntibiogram = (sample, bacteria, atb_data) => {
+  // staphylococcusName
+  if (sample.sensitivity.staphylococcusName === bacteria) {
+    sample.sensitivity.staphylococcusPanel.forEach((atb) => {
+      !atb_data[atb.antib] && (atb_data[atb.antib] = {});
+      if (atb.sensitivity === "S") {
+        atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
+      }
+      atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
+    });
+  }
+  // streptococcusName
+  if (sample.sensitivity.streptococcusName === bacteria) {
+    sample.sensitivity.streptococcusPanel.forEach((atb) => {
+      !atb_data[atb.antib] && (atb_data[atb.antib] = {});
+      if (atb.sensitivity === "S") {
+        atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
+      }
+      atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
+    });
+  }
+  // gramPositiveName
+  if (sample.sensitivity.gramPositiveName === bacteria) {
+    sample.sensitivity.gramPositivePanel.forEach((atb) => {
+      !atb_data[atb.antib] && (atb_data[atb.antib] = {});
+      if (atb.sensitivity === "S") {
+        atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
+      }
+      atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
+    });
+  }
+  // pseudomonasName
+  if (sample.sensitivity.pseudomonasName === bacteria) {
+    sample.sensitivity.pseudomonasPanel.forEach((atb) => {
+      !atb_data[atb.antib] && (atb_data[atb.antib] = {});
+      if (atb.sensitivity === "S") {
+        atb_data[atb.antib].sus ? atb_data[atb.antib].sus++ : (atb_data[atb.antib].sus = 1);
+      }
+      atb_data[atb.antib].total ? atb_data[atb.antib].total++ : (atb_data[atb.antib].total = 1);
     });
   }
 };
