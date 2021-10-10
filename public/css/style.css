@@ -134,3 +134,20 @@ a:hover {
   list-style-type: none;
   padding-left: 0;
 }
+
+ /* sample details */
+
+ .sample-details{
+   background-color: #B1BED5;
+   padding: 30px;
+   margin: 10px;
+   width:70%x;
+   border-radius: 5px;
+   border-style: solid;
+   border-width: 1px;
+ }
+ .sensitivity-table-container {
+   background-color: #B1BED5;
+   border-radius: 5px;
+   margin-right: : 1px;
+ }

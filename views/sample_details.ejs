@@ -3,10 +3,46 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1><%=sample.sample_id %></h1>
+      <h1>Sample ID: <%=sample.sample_id %></h1>
     </div>
+    <div class="sample-details container">
+      <div class="row">
+        <div class="col-md-12 col-lg-6">
+          <h3>Name: <%=sample.patientName %></h3>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <h3>Age: <%= sample.age %></h3>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <h3>Sex: <%= sample.sex%></h3>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <h3>Date and Time: <%= new Date(sample.createdAt).toUTCString() %></h3>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="sample-details container">
+      <div class="row">
+        <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
+        <div class="col-md-12 col-lg-6">
+            <h3>Growth Time: <%= sample.sensitivity && sample.sensitivity.growthTime %></h3>
+        </div>
+          <div class="col-md-12 col-lg-6">
+            <h3>Bacteria Count: <%= sample.sensitivity && sample.sensitivity.bacterialCount %></h3>
+          </div>
+        <% } %>
+        <div class="col-md-12 col-lg-6">
+          <h3>Bacteria type: <%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></h3>
+        </div>
+        <div class="col-md-12 col-lg-6">
+          <h3>Progress: <%=sample.progress %></h3>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-12">
-      <h3>Progress: <%=sample.progress %></h3>
 
       <%if(sample.sensitivity){ %>
 
@@ -59,7 +95,16 @@
         </div>
           <% } %>
       </div>
-      <% } %>
+        <% } %>
+
+        <%if(sample.remarks){ %>
+        <div class="sample-details col-md-12">
+          <h3>Remarks: <%= sample.remarks %></h3>
+        </div>
+        <% } %>
+      <div class="col-md-12">
+        <h2>Physician Name: <%= sample.physician %></h2>
+      </div>
 
       <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-outline-dark" >Print Report</a>
     </div>
@@ -67,5 +112,3 @@
   <button class="btn btn-outline-dark" onclick="window.history.back()">Back</button>
 </div>
 <%-include("partials/add-new") %> <%-include("partials/footer") %>
-
-

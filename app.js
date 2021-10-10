@@ -13,6 +13,8 @@ const morgan = require("morgan");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// process.env.DATABASE
+
 mongoose
   .connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("DB connected"))

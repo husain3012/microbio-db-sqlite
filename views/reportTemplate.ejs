@@ -26,16 +26,27 @@
     }
   </style>
 
-  <h5>ID: <%= sample.sample_id %></h5>
-  <p><strong>Name:</strong> <%= sample.patientName %></p>
-  <p><strong>Age:</strong> <%= sample.age %> <strong>Sex:</strong> <%= sample.sex%></p>
+<h3>ID: <%= sample.sample_id %></h3>
+ <p><strong>Name:</strong> <%= sample.patientName %></p>
+ <p><strong>Age:</strong> <%= sample.age %></p>
+ <p> <strong>Sex:</strong> <%= sample.sex%></p>
+ <p><strong>Date:</strong> <%= new Date(sample.createdAt).toUTCString() %></p>
 
-  <p><strong>Date:</strong> <%= new Date(sample.createdAt).toUTCString() %></p>
+ <hr>
 
-  <h5><strong>Progress:</strong> <%= sample.progress%></h5>
+ <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
+     <p><strong>Growth Time:</strong> <%= sample.sensitivity && sample.sensitivity.growthTime %></p>
+     <p><strong>Bacteria Count:</strong> <%= sample.sensitivity && sample.sensitivity.bacterialCount %></p>
+ <% } %>
+
+   <p><strong>Bacteria type:</strong> <%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
+   <p><strong>Progress:</strong> <%=sample.progress %></p>
+
+
   <hr />
-  <h5>Sensitivity:</h5>
 
+
+    <h5>Sensitivity:</h5>
   <% let current_ab = {} %>
   <table class="report-table">
     <% sample.sensitivity.staphylococcusPanel %> <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){ %>
@@ -114,7 +125,9 @@
 
     <% } %> <% current_ab = {} %>
   </table>
-
+  <%if(sample.remarks){ %>
+    <p><strong>Remarks:</strong> <%= sample.remarks %><p>
+  <% } %>
   <hr />
 
   <p><strong>Physician:</strong> <%= sample.physician %></[]>
