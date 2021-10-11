@@ -16,10 +16,11 @@ exports.bacteriaAntibiogram = async (req, res) => {
 
   Sample.find({ createdAt: { $gte: startDate, $lte: endDate } }).exec((err, result) => {
     let atb_data = {};
-
-    result.forEach((sample) => {
-      calculateAntibiogram(sample, bacteria, atb_data);
-    });
+    if (result.length > 0) {
+      result.forEach((sample) => {
+        calculateAntibiogram(sample, bacteria, atb_data);
+      });
+    }
 
     return res.json(atb_data);
   });
@@ -42,7 +43,7 @@ exports.yearlyAntibiogram = async (req, res) => {
 
 const calculateAntibiogram = (sample, bacteria, atb_data) => {
   // staphylococcusName
-  if (sample.sensitivity.staphylococcusName === bacteria) {
+  if (sample.sensitivity && sample.sensitivity.staphylococcusName === bacteria) {
     sample.sensitivity.staphylococcusPanel.forEach((atb) => {
       !atb_data[atb.antib] && (atb_data[atb.antib] = {});
       if (atb.sensitivity === "S") {
@@ -52,7 +53,7 @@ const calculateAntibiogram = (sample, bacteria, atb_data) => {
     });
   }
   // streptococcusName
-  if (sample.sensitivity.streptococcusName === bacteria) {
+  if (sample.sensitivity && sample.sensitivity.streptococcusName === bacteria) {
     sample.sensitivity.streptococcusPanel.forEach((atb) => {
       !atb_data[atb.antib] && (atb_data[atb.antib] = {});
       if (atb.sensitivity === "S") {
@@ -62,7 +63,7 @@ const calculateAntibiogram = (sample, bacteria, atb_data) => {
     });
   }
   // gramPositiveName
-  if (sample.sensitivity.gramPositiveName === bacteria) {
+  if (sample.sensitivity && sample.sensitivity.gramPositiveName === bacteria) {
     sample.sensitivity.gramPositivePanel.forEach((atb) => {
       !atb_data[atb.antib] && (atb_data[atb.antib] = {});
       if (atb.sensitivity === "S") {
@@ -72,7 +73,7 @@ const calculateAntibiogram = (sample, bacteria, atb_data) => {
     });
   }
   // pseudomonasName
-  if (sample.sensitivity.pseudomonasName === bacteria) {
+  if (sample.sensitivity && sample.sensitivity.pseudomonasName === bacteria) {
     sample.sensitivity.pseudomonasPanel.forEach((atb) => {
       !atb_data[atb.antib] && (atb_data[atb.antib] = {});
       if (atb.sensitivity === "S") {
