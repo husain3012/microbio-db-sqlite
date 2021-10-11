@@ -3,15 +3,20 @@
 <div class="container">
   <br />
   <br />
+  <!-- Date input -->
   <form action="/" method="POST" class="form-group">
     <div class="row">
       <div class="col-md-5 col-12">
-        <label>Start Date: </label>
-        <input class="form-control" type="date" id="startDate" name="startDate" />
+        <div class="form-floating">
+          <input class="form-control" type="date" id="startDate" name="startDate" />
+          <label>Start Date: </label>
+        </div>
       </div>
       <div class="col-md-5 col-12">
-        <label>End Date: </label>
-        <input class="form-control" type="date" id="startDate" name="endDate" />
+        <div class="form-floating">
+          <input class="form-control" type="date" id="startDate" name="endDate" />
+          <label>End Date: </label>
+        </div>
       </div>
       <div class="col-md-2 mt-auto col-12">
         <button class="btn btn-primary" type="submit">Go</button>
@@ -19,7 +24,9 @@
     </div>
   </form>
 
+  <!-- num of records, sort, filters -->
   <div id="record-list">
+    <!-- num of records and sort -->
     <div class="d-flex justify-content-between">
       <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
       <div class="dropdown">
@@ -35,6 +42,7 @@
         </div>
       </div>
     </div>
+    <!-- Filters -->
     <div id="filters">
       <div class="row">
         <!-- Seggs -->
