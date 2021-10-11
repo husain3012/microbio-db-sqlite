@@ -67,6 +67,11 @@ app.post("/add_new_entry", (req, res) => {
   });
 });
 
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+
 app.get("/update_progress/:sample_id", (req, res) => {
   console.log(req.params);
   let sample_id = req.params.sample_id;
