@@ -1,3 +1,10 @@
+:root {
+  --primary: #0077B6;
+  --blood: #e6849088;
+  --urine: #2b934888;
+  --puss: #fff49188;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -11,15 +18,15 @@ a:hover {
 .navbar {
   display: flex;
   flex-direction: row;
-  background-color: #4b6587;
+  background-color: var(--primary);
   justify-content: space-between;
   align-items: center;
   padding: .5rem;
 }
 .navbar form {
   display: flex;
-  background-color: #c8c6c6;
-  padding: 10px;
+  background-color: #E5E5E5;
+  padding: 5px;
   border-radius: 5px;
   margin-bottom: 0;
 }
@@ -34,10 +41,11 @@ a:hover {
   justify-content: center;
   align-items: center;
   position: fixed;
-  right: 40px;
-  bottom: 40px;
+  right: 30px;
+  bottom: 30px;
   border-radius: 100%;
-  background-color: #4b6587dd;
+  background-color: var(--primary);
+  opacity: 80%;
   color: #f7f6f2;
   padding: 10px;
   width: 80px;
@@ -46,7 +54,8 @@ a:hover {
   cursor: pointer;
 }
 .add-new-entry:hover {
-  background-color: #f8485e;
+  background-color: #ff0a54;
+  opacity: 100%;
   transition: all 0.3s ease;
   transform: scale(1.1);
 }
@@ -56,6 +65,9 @@ a:hover {
 }
 
 /*********************************  */
+.btn-primary {
+  background-color: var(--primary);
+}
 .card {
   margin: 1rem 0;
 }
@@ -93,13 +105,13 @@ a:hover {
 }
 
 .sample-info.blood {
-  background-color: #e68490;
+  background-color: var(--blood);
 }
 .sample-info.urine {
-  background-color: #b5c7a6;
+  background-color: var(--urine);
 }
 .sample-info.puss {
-  background-color: #fff491;
+  background-color: var(--puss);
 }
 
 /* ******************* */
@@ -146,24 +158,107 @@ a:hover {
    background-color: #B1BED5;
    padding: 30px;
    margin: 10px;
-   width:70%x;
+   width:98%;
    border-radius: 5px;
    border-style: solid;
    border-width: 1px;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
  }
- .sensitivity-table-container {
+
+ .panel {
    background-color: #B1BED5;
    border-radius: 5px;
-   margin-right: 1px;
+   margin-right: : 1px;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ }
+
+ .main-body {
+   margin-top: 50px;
+ }
+
+ .login-header {
+   background-color: #4b6587;
+   width: 100%;
+   height:90px;
+ }
+ .login-container {
+   max-width: 500px;
+   margin: auto;
+   padding: 0;
+   border-radius: 15px;
+   border-width: 3px;
+   border-color: grey;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ }
+ .login-container-heading {
+   background-color: #B1BED5;
+   height:60px;
+   margin:0;
+   border-top-right-radius: 15px;
+   border-top-left-radius: 15px;
+   padding: 30px;
+   text-align:center;
+ }
+ .login-form {
+   display: flex;
+   flex-direction: column;
+   justify-content:space-around;
+   padding: 10px;
+   padding-left: 30px;
+   gap:25px;
+   margin-top: 20px;
+   margin-bottom: 30px;
+ }
+ .input-area {
+   height:35px;
+   width:370px;
+   margin:5px;
+   border-style: solid;
+   border-width: 3px;
+   outline: none;
+   border-radius: 20px;
+   background-color: #B1BED5;
+ }
+ .login-button {
+   background-color: white;
+   height:45px;
+ }
+
+ .input-area:hover {
+   background-color: white;
+ }
+ .login-button:hover {
+   background-color: #B1BED5;
+   height:45px;
+ }
+
+ .sample-heading {
+   font-size: 3rem;
+   font-weight: bold;
+ }
+
+ .sample-doc {
+   font-size: 2rem;
+   font-weight: bold;
  }
 
  @media only screen and (max-width: 800px) {
   .nav-form-input {
     width: 20ch;
-  }  
+  }
   #nav-sample-id {
     width: 13ch;
   }
+  .add-new-entry {
+    right: 20px;
+    bottom: 20px;
+    width: 55px;
+    height: 55px;
+    opacity: 90%;
+  }
+  .add-new-entry h1 {
+    font-size: 30px;
+  }  
   input, select {
     margin-bottom: 2px;
   }
