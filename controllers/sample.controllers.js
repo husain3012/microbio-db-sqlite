@@ -236,10 +236,10 @@ exports.randomSampleGen = async (req, res) => {
         antib: "G",
         sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
-      {
-        antib: "Tob",
-        sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
-      },
+      // {
+      //   antib: "Tob",
+      //   sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
+      // },
       {
         antib: "Ak",
         sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],

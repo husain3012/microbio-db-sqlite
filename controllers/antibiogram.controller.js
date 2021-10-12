@@ -26,19 +26,31 @@ exports.bacteriaAntibiogram = async (req, res) => {
   });
 };
 
-exports.yearlyAntibiogram = async (req, res) => {
-  const bacteria = req.body.bacteria;
+exports.trendAnalysis = async (req, res) => {
+  let startYear = new Date(req.body.startYear + "-01-01");
+  let endYear = new Date(req.body.endYear + "-01-01");
+  console.log(startYear.toLocaleString());
+  let bacteria = req.body.bacteria;
+
   let years = [];
-
   for (let i = req.body.startYear; i <= req.body.endYear; i++) {
-    let startYear = new Date(i + "-1-1");
-    let endYear = new Date(i + 1 + "-1-1");
-    years.push([startYear, endYear]);
+    years.push(i);
   }
+  Sample.find({ createdAt: { $gte: startYear, $lte: endYear } }).exec((err, result) => {
+    let atb_data = {};
+    if (result.length > 0) {
+      years.forEach((year) => {
+        atb_data[year] = {};
+        result.forEach((sample) => {
+          if (sample.createdAt.getFullYear() === year) {
+            calculateAntibiogram(sample, bacteria, atb_data[year]);
+          }
+        });
+      });
+    }
 
-  async function calcYearData() {
-    let calculate = new Promise(function (myResolve, myReject) {});
-  }
+    return res.json(atb_data);
+  });
 };
 
 const calculateAntibiogram = (sample, bacteria, atb_data) => {
