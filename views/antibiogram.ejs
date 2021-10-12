@@ -1,19 +1,28 @@
 <%-include("partials/header") %> <%-include("partials/navbar") %>
 
-<div class="container">
+<div class="container mt-2">
   <form id="antibiogram-form" method="" action="">
-    <div class="row">
+    <div class="row align-items-center">
+      <!-- Start Date -->
       <div class="col-md-3 col-12">
-        <label class="form-label">Start Date: </label>
-        <input required class="form-control" type="date" id="startDate" name="startDate" />
+        <div class="form-floating">
+          <input required class="form-control" type="date" id="startDate" name="startDate" />
+          <label class="form-label">Start Date: </label>
+        </div>
       </div>
+      <!-- End Date -->
       <div class="col-md-3 col-12">
-        <label class="form-label">End Date: </label>
-        <input required class="form-control" type="date" id="startDate" name="endDate" />
+        <div class="form-floating">
+          <input required class="form-control" type="date" id="startDate" name="endDate" />
+          <label class="form-label">End Date: </label>
+        </div>
       </div>
+      <!-- Bacteria -->
       <div class="col-md-3 col-12">
-        <label class="form-label">Bacteria(s):</label>
-        <input required class="form-control" type="text" name="bacteria" />
+        <div class="form-floating">
+          <input required class="form-control" type="text" name="bacteria" />
+          <label class="form-label">Bacteria(s):</label>  
+        </div>
       </div>
       <div class="col-md-3 col-12">
         <button class="btn btn-primary m-auto">Get Reports</button>
