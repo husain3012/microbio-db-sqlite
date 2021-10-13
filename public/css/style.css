@@ -159,15 +159,16 @@ a:hover {
   background-color: var(--puss);
 }
 
-/* ******************* */
+/* *********************PRINT************************ */
 .panel {
   display: flex;
   flex-direction: column;
-  border: #4b6587 1px solid;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 5px;
-  padding: 1rem;
+  padding: 20px;
   margin: 1rem 0;
   width: 100%;
+  background-color: whitesmoke;
 }
 .panel-body {
   display: flex;
@@ -190,42 +191,24 @@ a:hover {
   background-color: #fda7a7;
 }
 
-/* **************** */
-
 #record-list ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-/* sample details */
-
 .sample-details {
-  background-color: #b1bed5;
-  padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 5px;
+  padding: 20px;
   margin: 10px;
   width: 98%;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.panel {
-  background-color: #b1bed5;
-  border-radius: 5px;
-  margin-right: 1px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .main-body {
   margin-top: 50px;
 }
-.panel {
-  background-color: #b1bed5;
-  border-radius: 5px;
-  margin-right: 1px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
+
+/* ******************************LOGIN*************************** */
 
 .login-header {
   background-color: #4b6587;
