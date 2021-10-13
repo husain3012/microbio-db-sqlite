@@ -1,5 +1,5 @@
 :root {
-  --primary: #0077B6;
+  --primary: #0077b6;
   --blood: #e6849088;
   --urine: #2b934888;
   --puss: #fff49188;
@@ -21,11 +21,11 @@ a:hover {
   background-color: var(--primary);
   justify-content: space-between;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 .navbar form {
   display: flex;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   padding: 5px;
   border-radius: 5px;
   margin-bottom: 0;
@@ -152,97 +152,117 @@ a:hover {
   padding-left: 0;
 }
 
- /* sample details */
+/* sample details */
 
- .sample-details{
-   background-color: #B1BED5;
-   padding: 30px;
-   margin: 10px;
-   width:98%;
-   border-radius: 5px;
-   border-style: solid;
-   border-width: 1px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- }
+.sample-details {
+  background-color: #b1bed5;
+  padding: 30px;
+  margin: 10px;
+  width: 98%;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
- .panel {
-   background-color: #B1BED5;
-   border-radius: 5px;
-   margin-right: : 1px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- }
+.panel {
+  background-color: #b1bed5;
+  border-radius: 5px;
+  margin-right: 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
- .main-body {
-   margin-top: 50px;
- }
+.main-body {
+  margin-top: 50px;
+}
 
- .login-header {
-   background-color: #4b6587;
-   width: 100%;
-   height:90px;
- }
- .login-container {
-   max-width: 500px;
-   margin: auto;
-   padding: 0;
-   border-radius: 15px;
-   border-width: 3px;
-   border-color: grey;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- }
- .login-container-heading {
-   background-color: #B1BED5;
-   height:60px;
-   margin:0;
-   border-top-right-radius: 15px;
-   border-top-left-radius: 15px;
-   padding: 30px;
-   text-align:center;
- }
- .login-form {
-   display: flex;
-   flex-direction: column;
-   justify-content:space-around;
-   padding: 10px;
-   padding-left: 30px;
-   gap:25px;
-   margin-top: 20px;
-   margin-bottom: 30px;
- }
- .input-area {
-   height:35px;
-   width:370px;
-   margin:5px;
-   border-style: solid;
-   border-width: 3px;
-   outline: none;
-   border-radius: 20px;
-   background-color: #B1BED5;
- }
- .login-button {
-   background-color: white;
-   height:45px;
- }
+.login-header {
+  background-color: #4b6587;
+  width: 100%;
+  height: 90px;
+}
+.login-container {
+  max-width: 500px;
+  margin: auto;
+  padding: 0;
+  border-radius: 15px;
+  border-width: 3px;
+  border-color: grey;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.login-container-heading {
+  background-color: #b1bed5;
+  height: 60px;
+  margin: 0;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 30px;
+  text-align: center;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+  padding-left: 30px;
+  gap: 25px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.input-area {
+  height: 35px;
+  width: 370px;
+  margin: 5px;
+  border-style: solid;
+  border-width: 3px;
+  outline: none;
+  border-radius: 20px;
+  background-color: #b1bed5;
+}
+.login-button {
+  background-color: white;
+  height: 45px;
+}
 
- .input-area:hover {
-   background-color: white;
- }
- .login-button:hover {
-   background-color: #B1BED5;
-   height:45px;
- }
+.input-area:hover {
+  background-color: white;
+}
+.login-button:hover {
+  background-color: #b1bed5;
+  height: 45px;
+}
 
- .sample-heading {
-   font-size: 3rem;
-   font-weight: bold;
- }
+.sample-heading {
+  font-size: 3rem;
+  font-weight: bold;
+}
 
- .sample-doc {
-   font-size: 2rem;
-   font-weight: bold;
- }
+.sample-doc {
+  font-size: 2rem;
+  font-weight: bold;
+}
 
- @media only screen and (max-width: 800px) {
+/* antibiogram table */
+#antibiogram-table table tr{
+  background-color: #eee;
+}
+#antibiogram-table table th {
+  background-color: #0077b6;
+  padding: 1px 1rem;
+  color: #fff;
+}
+
+#antibiogram-table table td {
+  padding: 1px 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc;
+}
+#antibiogram-table .table-heading{
+  background-color: #000;
+  color: #ccc;
+}
+@media only screen and (max-width: 800px) {
   .nav-form-input {
     width: 20ch;
   }
@@ -258,8 +278,9 @@ a:hover {
   }
   .add-new-entry h1 {
     font-size: 30px;
-  }  
-  input, select {
+  }
+  input,
+  select {
     margin-bottom: 2px;
   }
   .sample-info {
@@ -268,4 +289,4 @@ a:hover {
   .sensitivity-info {
     width: 100%;
   }
- }
+}
