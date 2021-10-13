@@ -1,8 +1,8 @@
 :root {
-  --primary: #0077B6;
-  --secondary: #00B4D8;
-  --tertiary: #03045E;
-  --quarternary: #CAF0F8;
+  --primary: #0077b6;
+  --secondary: #00b4d8;
+  --tertiary: #03045e;
+  --quaternary: #caf0f8;
 
   --blood: #e6849088;
   --urine: #2b934888;
@@ -62,7 +62,8 @@ a:hover {
   width: 40px;
   height: 40px;
 }
-.scroll-to-top:hover, .add-new-entry:hover {
+.scroll-to-top:hover,
+.add-new-entry:hover {
   background-color: #ff0a54;
   transition: all 0.3s ease;
   transform: scale(1.1);
@@ -81,7 +82,7 @@ a:hover {
 }
 .search-form {
   display: none;
-  background-color: var(--quarternary);
+  background-color: var(--quaternary);
   padding: 5px;
   padding-right: 30px;
   border-radius: 5px;
@@ -219,12 +220,12 @@ a:hover {
 .main-body {
   margin-top: 50px;
 }
- .panel {
-   background-color: #B1BED5;
-   border-radius: 5px;
-   margin-right: 1px;
-   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- }
+.panel {
+  background-color: #b1bed5;
+  border-radius: 5px;
+  margin-right: 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
 .login-header {
   background-color: #4b6587;
@@ -283,7 +284,7 @@ a:hover {
 }
 /********************* LOGIN **********************/
 
- .login-header {
+/* .login-header {
    background-color: #4b6587;
    width: 100%;
    height:90px;
@@ -329,7 +330,36 @@ a:hover {
  .login-button {
    background-color: white;
    height:45px;
- }
+ } */
+
+.login-form-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tertiary);
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  background-color: #ccc;
+  padding: 1.5rem;
+  /* border-radius: 10px; */
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+
 
 .sample-heading {
   font-size: 3rem;
@@ -342,7 +372,7 @@ a:hover {
 }
 
 /* antibiogram table */
-#antibiogram-table table tr{
+#antibiogram-table table tr {
   background-color: #eee;
 }
 #antibiogram-table table th {
@@ -351,7 +381,7 @@ a:hover {
   color: #fff;
 }
 
- @media only screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
   #search-sample-id {
     width: 13ch;
   }
@@ -372,7 +402,8 @@ a:hover {
     bottom: 12px;
     right: 30px;
   }
-  input, select {
+  input,
+  select {
     margin-bottom: 2px;
   }
   .sample-info {
