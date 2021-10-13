@@ -1,5 +1,9 @@
 :root {
   --primary: #0077B6;
+  --secondary: #00B4D8;
+  --tertiary: #03045E;
+  --quarternary: #CAF0F8;
+
   --blood: #e6849088;
   --urine: #2b934888;
   --puss: #fff49188;
@@ -23,50 +27,80 @@ a:hover {
   align-items: center;
   padding: .5rem;
 }
-.navbar form {
+.bottomMenu {
   display: flex;
-  background-color: #E5E5E5;
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 0;
+  flex-direction: column;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
-.navbar form .form-field {
-  margin: auto 10px auto 0;
-}
-.nav-form-input {
-  width: 25ch;
-}
-.add-new-entry {
+.bottom-menu-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
+  margin-bottom: 10px;
   border-radius: 100%;
-  background-color: var(--primary);
-  opacity: 80%;
   color: #f7f6f2;
   padding: 10px;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   transition: all 0.3s ease;
   cursor: pointer;
+  z-index: 2;
 }
-.add-new-entry:hover {
+.bottom-menu-icon img {
+  width: 40px;
+  height: 40px;
+}
+.scroll-to-top:hover, .add-new-entry:hover {
   background-color: #ff0a54;
-  opacity: 100%;
   transition: all 0.3s ease;
   transform: scale(1.1);
 }
-.add-new-entry h1 {
-  margin: auto;
-  font-size: 50px;
+.scroll-to-top {
+  background-color: var(--secondary);
+}
+.add-new-entry {
+  background-color: var(--primary);
+}
+.search-records {
+  background-color: var(--tertiary);
+}
+.search-records img {
+  width: 40px;
+}
+.search-form {
+  display: none;
+  background-color: var(--quarternary);
+  padding: 5px;
+  padding-right: 30px;
+  border-radius: 5px;
+  margin-bottom: 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 19;
+  right: 50;
+}
+.search-form .form-field {
+  margin: auto 10px auto 0;
+}
+.search-form-input {
+  width: 25ch;
+}
+.search-rec-btn {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
 }
 
-/*********************************  */
+/**************RECORD LIST********************/
 .btn-primary {
   background-color: var(--primary);
+}
+.date-submit {
+  background-color: var(--secondary);
 }
 .card {
   margin: 1rem 0;
@@ -168,13 +202,15 @@ a:hover {
  .panel {
    background-color: #B1BED5;
    border-radius: 5px;
-   margin-right: : 1px;
+   margin-right: 1px;
    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
  }
 
  .main-body {
    margin-top: 50px;
  }
+
+/********************* LOGIN **********************/
 
  .login-header {
    background-color: #4b6587;
@@ -243,22 +279,26 @@ a:hover {
  }
 
  @media only screen and (max-width: 800px) {
-  .nav-form-input {
-    width: 20ch;
-  }
-  #nav-sample-id {
+  #search-sample-id {
     width: 13ch;
   }
-  .add-new-entry {
-    right: 20px;
-    bottom: 20px;
+  .bottomMenu {
+    bottom: 0;
+    right: 5px;
+  }
+  .bottom-menu-icon {
     width: 55px;
     height: 55px;
-    opacity: 90%;
+    border: 1px solid white;
   }
-  .add-new-entry h1 {
-    font-size: 30px;
-  }  
+  .bottom-menu-icon img {
+    width: 30px;
+    height: 30px;
+  }
+  .search-form {
+    bottom: 12px;
+    right: 30px;
+  }
   input, select {
     margin-bottom: 2px;
   }
