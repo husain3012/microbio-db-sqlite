@@ -22,3 +22,10 @@ div.dt-buttons {
 .dt-buttons .dt-button:hover {
   background-color: var(--secondary);
 }
+table.dataTable tbody tr.odd{
+    background-color: #F0F0F0;
+}
+
+table.dataTable tbody tr.even{
+    background-color: #FFFFFF;
+}
