@@ -1,0 +1,91 @@
+.bottomMenu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+.bottom-menu-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 100%;
+  color: #f7f6f2;
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 2;
+}
+.bottom-menu-icon img {
+  width: 40px;
+  height: 40px;
+}
+.scroll-to-top:hover,
+.add-new-entry:hover {
+  background-color: #ff0a54;
+  transition: all 0.3s ease;
+  transform: scale(1.1);
+}
+.scroll-to-top {
+  background-color: var(--secondary);
+}
+.add-new-entry {
+  background-color: var(--primary);
+}
+.search-records {
+  background-color: var(--tertiary);
+}
+.search-records img {
+  width: 40px;
+}
+.search-form {
+  display: none;
+  background-color: var(--quaternary);
+  padding: 5px;
+  padding-right: 30px;
+  border-radius: 5px;
+  margin-bottom: 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 19;
+  right: 50;
+}
+.search-form .form-field {
+  margin: auto 10px auto 0;
+}
+.search-form-input {
+  width: 25ch;
+}
+.search-rec-btn {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
+@media only screen and (max-width: 800px) {
+  #search-sample-id {
+    width: 13ch;
+  }
+  .bottomMenu {
+    bottom: 0;
+    right: 5px;
+  }
+  .bottom-menu-icon {
+    width: 55px;
+    height: 55px;
+    border: 1px solid white;
+  }
+  .bottom-menu-icon img {
+    width: 30px;
+    height: 30px;
+  }
+  .search-form {
+    bottom: 12px;
+    right: 30px;
+  }
+}
