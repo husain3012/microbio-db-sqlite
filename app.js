@@ -45,7 +45,11 @@ cors;
 
 const serverRoot = "http://localhost:" + (process.env.PORT || "3000");
 
-app.get("/", requireAuth, (req, res) => {
+app.get("/", (req, res) => {
+  res.redirect("/records");
+});
+
+app.get("/records", requireAuth, (req, res) => {
   axios.get(serverRoot + "/api/sample/getByDate").then((response) => {
     if (response.status) {
       res.render("index", { records: response.data.data, user: req.user });
@@ -53,7 +57,7 @@ app.get("/", requireAuth, (req, res) => {
   });
 });
 
-app.post("/", (req, res) => {
+app.post("/records", (req, res) => {
   let endDate = new Date();
   let startDate = new Date();
   startDate.setMonth(startDate.getMonth() - 3);

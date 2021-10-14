@@ -3,7 +3,7 @@
   --secondary: #00b4d8;
   --tertiary: #03045e;
   --quaternary: #caf0f8;
-
+  --white-bg: #f6f6f6;
   --blood: #e6849088;
   --urine: #2b934888;
   --puss: #fff49188;
@@ -12,7 +12,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
 }
 a,
 a:hover {
@@ -21,9 +21,9 @@ a:hover {
 }
 
 .shadow-card {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   border-radius: 5px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 .input-group-text {
   background-color: var(--primary);
@@ -38,18 +38,6 @@ a:hover {
   select {
     margin-bottom: 2px;
   }
-}
-
-.btn-light {
-  border-color: #00416a;
-  border-width: medium;
-  color: #00416a;
-  outline: none;
-}
-.btn-light:hover {
-  background-color: #00416a;
-  border-width: medium;
-  color: #FEFBF3;
 }
 
 .list-details {

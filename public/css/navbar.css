@@ -4,5 +4,37 @@
   background-color: var(--primary);
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.nav-link-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  height: 50px;
+}
+a.nav-link {
+  padding: 10px;
+  text-align: center;
+  border: solid;
+  border-width: 1px;
+  border-color: var(--primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgb(161, 187, 15);
+  font-weight: bold;
+  width: 200px;
+  position: relative;
+  z-index: 10;
+}
+
+
+a.nav-link.active {
+  background-color: var(--white-bg);
+  border-color: var(--white-bg);
+}
+.history-button img {
+  width: 40px;
+  height: 40px;
 }
