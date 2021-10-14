@@ -1,0 +1,67 @@
+.date-submit { /* The GO button */
+  background-color: var(--secondary);
+}
+.card {
+  margin: 1rem 0;
+}
+.card-body {
+  padding: 0;
+}
+
+.sample-card {
+  padding: 5px;
+}
+
+#record-list ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#record-list .card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#record-list .card-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid #a5a5a5;
+  padding: 0 10px;
+}
+.card-buttons button,
+.card-buttons a {
+  margin: 1rem 0;
+}
+
+.sample-info {
+  padding: 1rem 2rem;
+  border-right: 1px solid #a5a5a5;
+  width: 250px;
+  height: 100%;
+}
+.sensitivity-info {
+  padding: 1rem;
+
+  width: 80%;
+}
+
+.sample-info.blood {
+  background-color: var(--blood);
+}
+.sample-info.urine {
+  background-color: var(--urine);
+}
+.sample-info.puss {
+  background-color: var(--puss);
+}
+
+@media only screen and (max-width: 800px) {
+  .sample-info {
+    width: 200px;
+  }
+  .sensitivity-info {
+    width: 100%;
+  }
+}
