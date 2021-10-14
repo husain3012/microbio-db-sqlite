@@ -12,6 +12,7 @@
 body {
   padding: 0;
   margin: 0;
+  background-color: #F6F6F6;
 }
 a,
 a:hover {
@@ -37,4 +38,20 @@ a:hover {
   select {
     margin-bottom: 2px;
   }
+}
+
+.btn-light {
+  border-color: #00416a;
+  border-width: medium;
+  color: #00416a;
+  outline: none;
+}
+.btn-light:hover {
+  background-color: #00416a;
+  border-width: medium;
+  color: #FEFBF3;
+}
+
+.list-details {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
