@@ -40,32 +40,8 @@
 .search-records img {
   width: 40px;
 }
-.search-form {
-  display: flex;
-  background-color: var(--quaternary);
-  padding: 5px;
-  padding-right: 30px;
-  border-radius: 5px;
-  margin-bottom: 0;
-}
-.search-form .form-field {
-  margin: auto 10px auto 0;
-}
-.search-form-input {
-  width: 25ch;
-}
-.search-rec-btn {
-  background-color: var(--primary);
-  border: none;
-  border-radius: 100%;
-  width: 40px;
-  height: 40px;
-}
 
 @media only screen and (max-width: 800px) {
-  #search-sample-id {
-    width: 13ch;
-  }
   .bottomMenu {
     bottom: 0;
     right: 5px;
@@ -78,9 +54,5 @@
   .bottom-menu-icon img {
     width: 30px;
     height: 30px;
-  }
-  .search-form {
-    bottom: 12px;
-    right: 30px;
   }
 }
