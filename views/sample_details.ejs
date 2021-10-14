@@ -105,12 +105,12 @@
         </div>
         <% } %>
       <div class="col-md-12 sample-doc">
-        <h2>Physician Name: <%= sample.physician %></h2>
+        <p>Physician Name: <%= sample.physician %></p>
       </div>
 
-      <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-outline-dark" >Print Report</a>
+      <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-light" >Print Report</a>
+      <button class="btn btn-light" onclick="window.history.back()">Back</button>
     </div>
   </div>
-  <button class="btn btn-outline-dark" onclick="window.history.back()">Back</button>
 </div>
 <%-include("partials/footer") %>

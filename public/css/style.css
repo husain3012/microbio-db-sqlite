@@ -12,6 +12,7 @@
 body {
   padding: 0;
   margin: 0;
+  background-color: #F6F6F6;
 }
 a,
 a:hover {
@@ -196,14 +197,23 @@ a:hover {
   padding-left: 0;
 }
 
-.sample-details {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
-  width: 98%;
-}
+.sample-details{
+   background-color: #CAF0F8;
+   padding: 30px;
+   margin: 10px;
+   width:98%;
+   border-radius: 5px;
+   font-size: 1.7rem;
+   font-weight: bold;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ }
 
+ .panel {
+   background-color: #CAF0F8;
+   border-radius: 5px;
+   margin-right: 1px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+ }
 .main-body {
   margin-top: 50px;
 }
@@ -395,4 +405,20 @@ a:hover {
   .sensitivity-info {
     width: 100%;
   }
+}
+
+.btn-light {
+  border-color: #00416a;
+  border-width: medium;
+  color: #00416a;
+  outline: none;
+}
+.btn-light:hover {
+  background-color: #00416a;
+  border-width: medium;
+  color: #FEFBF3;
+}
+
+.list-details {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
