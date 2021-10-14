@@ -23,8 +23,7 @@
   width: 40px;
   height: 40px;
 }
-.scroll-to-top:hover,
-.add-new-entry:hover {
+.bottom-menu-icon:hover {
   background-color: #ff0a54;
   transition: all 0.3s ease;
   transform: scale(1.1);
@@ -42,16 +41,12 @@
   width: 40px;
 }
 .search-form {
-  display: none;
+  display: flex;
   background-color: var(--quaternary);
   padding: 5px;
   padding-right: 30px;
   border-radius: 5px;
   margin-bottom: 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 19;
-  right: 50;
 }
 .search-form .form-field {
   margin: auto 10px auto 0;
