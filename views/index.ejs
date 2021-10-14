@@ -30,71 +30,68 @@
 
   <!-- num of records, sort, filters, Sample list -->
   <div id="record-list">
-    <!-- num of records and filter -->
-    <div class="shadow-card">
-      <!-- num of records. sort -->
-      <div class="d-flex justify-content-between">
-        <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
-        <!-- Sort -->
-        <div class="dropdown">
-          <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">
-            Sort
-          </button>
-          <div class="dropdown-menu" id="sortMenu">
-            <button class="sort form-label dropdown-item" data-sort="date">Date</button>
-            <button class="sort form-label dropdown-item" data-sort="sample-date">Sample Date</button>
-            <button class="sort form-label dropdown-item" data-sort="name">Name</button>
-            <button class="sort form-label dropdown-item" data-sort="age">Age</button>
-            <button class="sort form-label dropdown-item" data-sort="sample-id">ID</button>
-          </div>
-        </div>  
+    <!-- num of records. sort -->
+    <div class="d-flex justify-content-between">
+      <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
+      <!-- Sort -->
+      <div class="dropdown">
+        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">
+          Sort
+        </button>
+        <div class="dropdown-menu" id="sortMenu">
+          <button class="sort form-label dropdown-item" data-sort="date">Date</button>
+          <button class="sort form-label dropdown-item" data-sort="sample-date">Sample Date</button>
+          <button class="sort form-label dropdown-item" data-sort="name">Name</button>
+          <button class="sort form-label dropdown-item" data-sort="age">Age</button>
+          <button class="sort form-label dropdown-item" data-sort="sample-id">ID</button>
+        </div>
+      </div>  
 
-      </div>
-      <!-- Filters -->
-      <div id="filters">
-        <div class="row">
-          <!-- Seggs -->
-          <div class="col-md-3 col-12">
-            <div class="form-floating">
-              <select filter="sex" class="form-select" id="filter-select-sex">
-                <option value="all">All</option>
-                <option value="m">Male</option>
-                <option value="f">Female</option>
-                <option value="o">Others</option>
-              </select>
-              <label for="filter-select-sex">Sex</label>
-            </div>
+    </div>
+    <!-- Filters -->
+    <div id="filters">
+      <div class="row">
+        <!-- Seggs -->
+        <div class="col-md-3 col-12">
+          <div class="form-floating">
+            <select filter="sex" class="form-select" id="filter-select-sex">
+              <option value="all">All</option>
+              <option value="m">Male</option>
+              <option value="f">Female</option>
+              <option value="o">Others</option>
+            </select>
+            <label for="filter-select-sex">Sex</label>
           </div>
-          <!-- Progress -->
-          <div class="col-md-3 col-12">
-            <div class="form-floating">
-              <select filter="progress" class="form-select" id="filter-select-growth">
-                <option value="all">All</option>
-                <option value="growth">Growth</option>
-                <option value="contaminated">Contaminated</option>
-                <option value="sterile">Sterile</option>
-              </select>
-              <label for="filter-select-growth">Progress</label>
-            </div>
+        </div>
+        <!-- Progress -->
+        <div class="col-md-3 col-12">
+          <div class="form-floating">
+            <select filter="progress" class="form-select" id="filter-select-growth">
+              <option value="all">All</option>
+              <option value="growth">Growth</option>
+              <option value="contaminated">Contaminated</option>
+              <option value="sterile">Sterile</option>
+            </select>
+            <label for="filter-select-growth">Progress</label>
           </div>
-          <!-- Specimen -->
-          <div class="col-md-3 col-12">
-            <div class="form-floating">
-              <select filter="specimen" class="form-select" id="filter-select-specimen">
-                <option value="all">All</option>
-                <option value="puss">Puss</option>
-                <option value="urine">Urine</option>
-                <option value="blood">Blood</option>
-              </select>
-              <label for="filter-select-specimen">Specimen</label>
-            </div>
+        </div>
+        <!-- Specimen -->
+        <div class="col-md-3 col-12">
+          <div class="form-floating">
+            <select filter="specimen" class="form-select" id="filter-select-specimen">
+              <option value="all">All</option>
+              <option value="puss">Puss</option>
+              <option value="urine">Urine</option>
+              <option value="blood">Blood</option>
+            </select>
+            <label for="filter-select-specimen">Specimen</label>
           </div>
-          <!-- Age -->
-          <div class="col-md-3 col-12">
-            <div class="form-floating">
-              <input filter="age" class="form-control" type="text" id="filter-select-age" placeholder="23-40" />
-              <label for="filter-select-age">Age</label>
-            </div>
+        </div>
+        <!-- Age -->
+        <div class="col-md-3 col-12">
+          <div class="form-floating">
+            <input filter="age" class="form-control" type="text" id="filter-select-age" placeholder="23-40" />
+            <label for="filter-select-age">Age</label>
           </div>
         </div>
       </div>
