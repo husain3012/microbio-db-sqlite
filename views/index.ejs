@@ -1,91 +1,100 @@
 <%-include('partials/header')%> <%-include('partials/navbar')%>
+<link rel="stylesheet" href="/css/home.css" />
 
 <div class="container">
   <br />
   <br />
   <!-- Date input -->
   <form action="/" method="POST" class="form-group">
-    <div class="row d-flex justify-content-between">
-      <div class="col-md-6 col-12">
+    <div class="row gx-1 d-flex justify-content-start">
+      <!-- Start Date -->
+      <div class="col-lg-3 col-5">
         <div class="input-group">
           <span class="input-group-text">Start Date:</span>
           <input class="form-control" type="date" id="startDate" name="startDate" />
         </div>
       </div>
-      <div class="col-md-5 col-12">
+      <!-- End Date -->
+      <div class="col-lg-3 col-5">
         <div class="input-group">
           <span class="input-group-text">End Date:</span>
           <input class="form-control" type="date" id="startDate" name="endDate" />
         </div>
       </div>
-      <div class="col-md-1 col-2">
+      <!-- Submit -->
+      <div class="col-lg-1 col-1">
         <button class="btn btn-primary date-submit" type="submit">Go</button>
       </div>
     </div>
   </form>
 
-  <!-- num of records, sort, filters -->
+  <!-- num of records, sort, filters, Sample list -->
   <div id="record-list">
-    <!-- num of records and sort -->
-    <div class="d-flex justify-content-between">
-      <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
-      <div class="dropdown">
-        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">
-          Sort
-        </button>
-        <div class="dropdown-menu" id="sortMenu">
-          <button class="sort form-label dropdown-item" data-sort="date">Date</button>
-          <button class="sort form-label dropdown-item" data-sort="sample-date">Sample Date</button>
-          <button class="sort form-label dropdown-item" data-sort="name">Name</button>
-          <button class="sort form-label dropdown-item" data-sort="age">Age</button>
-          <button class="sort form-label dropdown-item" data-sort="sample-id">ID</button>
-        </div>
+    <!-- num of records and filter -->
+    <div class="shadow-card">
+      <!-- num of records. sort -->
+      <div class="d-flex justify-content-between">
+        <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
+        <!-- Sort -->
+        <div class="dropdown">
+          <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">
+            Sort
+          </button>
+          <div class="dropdown-menu" id="sortMenu">
+            <button class="sort form-label dropdown-item" data-sort="date">Date</button>
+            <button class="sort form-label dropdown-item" data-sort="sample-date">Sample Date</button>
+            <button class="sort form-label dropdown-item" data-sort="name">Name</button>
+            <button class="sort form-label dropdown-item" data-sort="age">Age</button>
+            <button class="sort form-label dropdown-item" data-sort="sample-id">ID</button>
+          </div>
+        </div>  
+
       </div>
-    </div>
-    <!-- Filters -->
-    <div id="filters">
-      <div class="row">
-        <!-- Seggs -->
-        <div class="col-md-3 col-12">
-          <div class="form-floating">
-            <select filter="sex" class="form-select" id="filter-select-sex">
-              <option value="all">All</option>
-              <option value="m">Male</option>
-              <option value="f">Female</option>
-              <option value="o">Others</option>
-            </select>
-            <label for="filter-select-sex">Sex</label>
+      <!-- Filters -->
+      <div id="filters">
+        <div class="row">
+          <!-- Seggs -->
+          <div class="col-md-3 col-12">
+            <div class="form-floating">
+              <select filter="sex" class="form-select" id="filter-select-sex">
+                <option value="all">All</option>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+                <option value="o">Others</option>
+              </select>
+              <label for="filter-select-sex">Sex</label>
+            </div>
           </div>
-        </div>
-        <!-- Progress -->
-        <div class="col-md-3 col-12">
-          <div class="form-floating">
-            <select filter="progress" class="form-select" id="filter-select-growth">
-              <option value="all">All</option>
-              <option value="growth">Growth</option>
-              <option value="contaminated">Contaminated</option>
-              <option value="sterile">Sterile</option>
-            </select>
-            <label for="filter-select-growth">Progress</label>
+          <!-- Progress -->
+          <div class="col-md-3 col-12">
+            <div class="form-floating">
+              <select filter="progress" class="form-select" id="filter-select-growth">
+                <option value="all">All</option>
+                <option value="growth">Growth</option>
+                <option value="contaminated">Contaminated</option>
+                <option value="sterile">Sterile</option>
+              </select>
+              <label for="filter-select-growth">Progress</label>
+            </div>
           </div>
-        </div>
-        <!-- Specimen -->
-        <div class="col-md-3 col-12">
-          <div class="form-floating">
-            <select filter="specimen" class="form-select" id="filter-select-specimen">
-              <option value="all">All</option>
-              <option value="puss">Puss</option>
-              <option value="urine">Urine</option>
-              <option value="blood">Blood</option>
-            </select>
-            <label for="filter-select-specimen">Specimen</label>
+          <!-- Specimen -->
+          <div class="col-md-3 col-12">
+            <div class="form-floating">
+              <select filter="specimen" class="form-select" id="filter-select-specimen">
+                <option value="all">All</option>
+                <option value="puss">Puss</option>
+                <option value="urine">Urine</option>
+                <option value="blood">Blood</option>
+              </select>
+              <label for="filter-select-specimen">Specimen</label>
+            </div>
           </div>
-        </div>
-        <!-- Age -->
-        <div class="col-md-3 col-12">
-          <div class="form-floating">
-            <input filter="age" class="form-control" type="text" id="filter-select-age" placeholder="23-40" />
-            <label for="filter-select-age">Age</label>
+          <!-- Age -->
+          <div class="col-md-3 col-12">
+            <div class="form-floating">
+              <input filter="age" class="form-control" type="text" id="filter-select-age" placeholder="23-40" />
+              <label for="filter-select-age">Age</label>
+            </div>
           </div>
         </div>
       </div>
@@ -96,7 +105,7 @@
       <% if(records.length > 0) { %> <% records.forEach(sample=>{%>
       <li>
         <!-- <h5 class="age"><%=sample.age %></h5> -->
-        <div class="card sample-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
+        <div class="card sample-card shadow-card" age="<%= sample.age %>" specimen="<%=sample.specimen %>" progress="<%= sample.progress %>" sex="<%=sample.sex%>">
           <div class="card-body">
             <div class="sample-info <%=sample.specimen %>">
               <h5 class="card-title"><strong class="sample-id"><%= sample.sample_id %></strong></h5>
@@ -134,11 +143,12 @@
   </div>
 </div>
 <%-include("partials/bottom-menu") %> <%-include("partials/footer") %>
+<%-include("partials/searchModal") %>
 
 <script type="text/javascript" src="js/filters.js"></script>
 <script type="text/javascript" src="js/sort.js"></script>
-<script type="text/javascript" src="js/searchForm.js"></script>
 <script type="text/javascript" src="js/scrollToTop.js"></script>
+<script type="text/javascript" src="js/searchModal.js"></script>
 
 <script>
   var options = {
