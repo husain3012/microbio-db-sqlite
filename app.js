@@ -57,7 +57,7 @@ app.get("/records", requireAuth, (req, res) => {
   });
 });
 
-app.post("/records", (req, res) => {
+app.post("/records", requireAuth, (req, res) => {
   let endDate = new Date();
   let startDate = new Date();
   startDate.setMonth(startDate.getMonth() - 3);
@@ -69,16 +69,16 @@ app.post("/records", (req, res) => {
   }
   axios.get(serverRoot + "/api/sample/getByDate?startDate=" + startDate.toISOString() + "&endDate=" + endDate.toISOString()).then((response) => {
     if (response.status) {
-      res.render("index", { records: response.data.data });
+      res.render("index", { records: response.data.data, user: req.user });
     }
   });
 });
 
-app.get("/add_new_entry", (req, res) => {
-  res.render("newentry");
+app.get("/add_new_entry", requireAuth, (req, res) => {
+  res.render("newentry", { user: req.user });
 });
 
-app.post("/add_new_entry", (req, res) => {
+app.post("/add_new_entry", requireAuth, (req, res) => {
   axios.post(serverRoot + "/api/sample/create", req.body).then((response) => {
     if (response.status) {
       res.redirect("/update_progress/" + response.data.data.sample_id);
@@ -110,7 +110,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/update_progress/:sample_id", (req, res) => {
+app.get("/update_progress/:sample_id", requireAuth, (req, res) => {
   let sample_id = req.params.sample_id;
   axios.get(serverRoot + "/api/sample/get/" + sample_id).then((response) => {
     axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
@@ -124,7 +124,7 @@ app.get("/update_progress/:sample_id", (req, res) => {
   });
 });
 
-app.post("/update_progress/", (req, res) => {
+app.post("/update_progress/", requireAuth, (req, res) => {
   const data = req.body;
   axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
     const staphylococcusData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "staphylococcus");
@@ -200,25 +200,25 @@ app.post("/update_progress/", (req, res) => {
   });
 });
 
-app.get("/sample_info/:sample_id", (req, res) => {
+app.get("/sample_info/:sample_id", requireAuth, (req, res) => {
   axios.get(serverRoot + "/api/sample/get/" + req.params.sample_id).then((response) => {
     if (response.status) {
-      res.render("sample_details", { sample: response.data.data });
+      res.render("sample_details", { sample: response.data.data, user: req.user });
     }
   });
 });
 
-app.post("/search", (req, res) => {
+app.post("/search", requireAuth, (req, res) => {
   let query = Object.fromEntries(Object.entries(req.body).filter(([_, v]) => v !== null && v !== ""));
 
   axios.post(serverRoot + "/api/sample/search", query).then((response) => {
     if (response.status) {
-      res.render("index", { records: response.data.data });
+      res.render("index", { records: response.data.data, user: req.user });
     }
   });
 });
 
-app.get("/printReport/:sample_id", (req, res) => {
+app.get("/printReport/:sample_id", requireAuth, (req, res) => {
   axios.get(serverRoot + "/api/sample/get/" + req.params.sample_id).then((response) => {
     axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
       const staphylococcusData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "staphylococcus");
@@ -228,14 +228,14 @@ app.get("/printReport/:sample_id", (req, res) => {
 
       axios.get(serverRoot + "/api/sample/report/" + req.params.sample_id).then((print) => {
         if (response.status) {
-          res.render("print_report", { sample: response.data.data, staphylococcusData, streptococussData, gramNegativeData, pseudomonasData, printed: print.data.filename });
+          res.render("print_report", { sample: response.data.data, staphylococcusData, streptococussData, gramNegativeData, pseudomonasData, printed: print.data.filename, user: req.user });
         }
       });
     });
   });
 });
 
-app.get("/printTemplate/:sample_id", (req, res) => {
+app.get("/printTemplate/:sample_id", requireAuth, (req, res) => {
   axios.get(serverRoot + "/api/sample/get/" + req.params.sample_id).then((response) => {
     axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
       const staphylococcusData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "staphylococcus");
@@ -250,23 +250,12 @@ app.get("/printTemplate/:sample_id", (req, res) => {
   });
 });
 
-app.get("/antibiogram", (req, res) => {
-  res.render("antibiogram", { antibiogram });
+app.get("/antibiogram", requireAuth, (req, res) => {
+  res.render("antibiogram", { antibiogram, user: req.user });
 });
 
-// app.post("/antibiogram", (req, res) => {
-//   const bacteria = req.body.bacteria;
-
-//   axios.get(serverRoot + "/api/antibiogram/bacteria?bacteria=" + bacteria).then((response) => {
-//     if (response.status) {
-//       console.log(response.data);
-//       res.render("antibiogram", { antibiogram: response.data });
-//     }
-//   });
-// });
-
-app.get("/trend_analysis", (req, res) => {
-  res.render("trend_analysis");
+app.get("/trend_analysis", requireAuth, (req, res) => {
+  res.render("trend_analysis", { user: req.user });
 });
 
 app.use("/api", sampleRoute);

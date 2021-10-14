@@ -2,20 +2,20 @@
 <nav class="navbar">
   <!-- Left icons -->
   <div class="user-settings">
-    <a class="history-button" type="button"  onclick="history.back()"><img alt="Go Back" src="/assets/icons/back-button.png" /></a>
+    <a class="history-button" data-toggle="tooltip" data-placement="right" title="Go Back"  type="button"  onclick="history.back()"><img alt="Go Back" src="/assets/icons/back-button.png" /></a>
   </div>
 
   <!-- center links -->
   <div class="nav-link-container">
    
-    <a href="/records" class="nav-link">Sample Record</a>
-    <a href="/antibiogram" class="nav-link active">Antibiogram</a>
+    <a href="/records" class="nav-link">Records Database</a>
+    <a href="/antibiogram" class="nav-link">Antibiogram</a>
     <a href="/trend_analysis" class="nav-link">Trend Analysis</a>
   </div>
 
   <!-- Right icons -->
   <div class="user-settings d-flex align-items-center">
-    <a href="/logout"><button class="btn btn-light">Logout</button></a>
+    <a href="/logout"><button class="btn btn-warning">Logout</button></a>
   </div>
 </nav>
 <script>
