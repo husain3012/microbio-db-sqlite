@@ -44,11 +44,13 @@ $("#antibiogram-form").on("submit", function (e) {
           let data = [];
           let labels = [];
 
-          $("#antibiogram-table").append(`<table class='m-5 d-inline' id='${bacteria}'><tr><th class='table-heading'>${bacteria}</th></tr><tr><th>Antibiotic</th><th>Susceptible</th><th>Total</th><th>Fraction</th></tr></table>`);
+          // $("#antibiogram-table").append(`<table class='m-5 d-inline' id='${bacteria}'><tr><th class='table-heading'>${bacteria}</th></tr><tr><th>Antibiotic</th><th>Susceptible</th><th>Total</th><th>Fraction</th></tr></table>`);
 
+          $("#antibiogram-table").append(`<table id='${bacteria}'></table>`);
+          let table_data = [];
           atb_panel.data.data.forEach((atb) => {
             if (response.data[atb.name]) {
-              $(`#${bacteria}`).append(`<tr><td>${atb.name}</td><td>${response.data[atb.name].sus || 0}</td><td>${response.data[atb.name].total}</td><td>${Math.round(response.data[atb.name].sus / response.data[atb.name].total*1000)/1000}</td></tr>`);
+              table_data.push([atb.name, response.data[atb.name].sus || 0, response.data[atb.name].total, (Math.floor((response.data[atb.name].sus / response.data[atb.name].total) * 1000) / 1000)||0]);
             }
             labels.push(atb.name);
 
@@ -57,6 +59,15 @@ $("#antibiogram-form").on("submit", function (e) {
             } else {
               data.push(0);
             }
+          });
+
+          $(`#${bacteria}`).DataTable({
+            data: table_data,
+            columns: [{ title: "name" }, { title: "sus" }, { title: "total" }, { title: "fraction" }],
+            dom: 'lBfrtip',
+            buttons: [
+              'copy', 'csv', 'excel', 'pdf'
+          ]
           });
 
           addChartData(antibiogramChart, labels, data, bacteria, index);
@@ -71,7 +82,7 @@ $("#antibiogram-form").on("submit", function (e) {
     antibiogramChart.update();
   });
 });
- function addChartData(chart, labels, data, bacteria, i) {
+function addChartData(chart, labels, data, bacteria, i) {
   chart.type = "bar";
   chart.data.labels = labels;
   chart.data.datasets[i] = {
