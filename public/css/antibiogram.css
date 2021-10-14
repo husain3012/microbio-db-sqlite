@@ -1,0 +1,9 @@
+/* antibiogram table */
+#antibiogram-table table tr {
+  background-color: #eee;
+}
+#antibiogram-table table th {
+  background-color: #0077b6;
+  padding: 1px 1rem;
+  color: #fff;
+}

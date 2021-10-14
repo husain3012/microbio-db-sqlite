@@ -1,0 +1,19 @@
+  <!-- Search Modal -->
+  <link rel="stylesheet" href="/css/searchModal.css">
+  <div id="searchModal" class="modal">
+    <div class="modal-content shadow-card">
+      <!-- Form -->
+      <form class="search-form" action="/search" method="POST">
+        <div class="form-field">
+          <input class="form-control search-form-input" type="text" name="sample_id" placeholder="Sample ID" id="search-sample-id" />
+        </div>
+        <div class="form-field">
+          <input class="form-control search-form-input" type="text" name="patientName" placeholder="Patient Name" />
+        </div>
+        <button class="search-rec-btn" type="submit"><img src="assets/icons/search.svg" style="width: 25px" /></button>
+      </form>
+      <div>
+        <button class="btn btn-outline-primary closeModal">Cancel</button>
+      </div>
+    </div>
+  </div>
