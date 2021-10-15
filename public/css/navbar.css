@@ -24,7 +24,7 @@ a.nav-link {
   cursor: pointer;
   color: var(--tertiary);
   width: 200px;
-  transition: all 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 a.nav-link:hover,
 a.nav-link:focus {
@@ -35,7 +35,6 @@ a.nav-link:focus {
 a.nav-link.active {
   background-color: var(--white-bg);
   border-color: var(--white-bg);
-  transition: all 0.3s ease-in-out;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 

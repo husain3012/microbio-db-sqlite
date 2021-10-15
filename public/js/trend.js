@@ -10,16 +10,15 @@ var trendChart = new Chart(ctx, {
 });
 
 new autoComplete({
-  selector: '#single-bacteria-input',
+  selector: "#single-bacteria-input",
   minChars: 1,
-  source: function(term, suggest){
-      term = term.toLowerCase();
-      var choices = ['Staphylococcus','Staphylococcus2','Staphylococcus3','Pseudomonas'];
-      var matches = [];
-      for (i=0; i<choices.length; i++)
-          if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-      suggest(matches);
-  }
+  source: function (term, suggest) {
+    term = term.toLowerCase();
+    var choices = ["Staphylococcus", "Staphylococcus2", "Staphylococcus3", "Pseudomonas"];
+    var matches = [];
+    for (i = 0; i < choices.length; i++) if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+    suggest(matches);
+  },
 });
 
 $("#trend-analysis-form").on("submit", function (e) {
@@ -45,7 +44,8 @@ $("#trend-analysis-form").on("submit", function (e) {
         atbs_panel.data.data.forEach((atb) => {
           let atb_data = [];
           for (let i = startYear; i < endYear; i++) {
-            if (res.data[i][atb.name] && res.data[i][atb.name].total) {
+            console.log(res.data[i]);
+            if (res.data[i] && res.data[i][atb.name] && res.data[i][atb.name].total) {
               atb_data.push((res.data[i][atb.name].sus / res.data[i][atb.name].total) * 100);
             } else {
               if (i == startYear) {

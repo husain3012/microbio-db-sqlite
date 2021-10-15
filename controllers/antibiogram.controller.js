@@ -1,5 +1,6 @@
 const Sample = require("../models/sample.model");
 const axios = require("axios");
+const SLR = require("ml-regression").SLR;
 
 exports.bacteriaAntibiogram = async (req, res) => {
   const today = new Date();
@@ -28,14 +29,20 @@ exports.bacteriaAntibiogram = async (req, res) => {
 
 exports.trendAnalysis = async (req, res) => {
   let startYear = new Date(req.body.startYear + "-01-01");
-  let endYear = new Date(req.body.endYear + "-01-01");
-  console.log(startYear.toLocaleString());
+  let endYear = new Date(req.body.endYear - 1 + "-12-31");
   let bacteria = req.body.bacteria;
 
   let years = [];
+  let futureYears = [];
+  let currentYear = new Date();
   for (let i = req.body.startYear; i <= req.body.endYear; i++) {
-    years.push(i);
+    if (i <= currentYear.getFullYear()) {
+      years.push(i);
+    } else {
+      futureYears.push(i);
+    }
   }
+
   Sample.find({ createdAt: { $gte: startYear, $lte: endYear } }).exec((err, result) => {
     let atb_data = {};
     if (result.length > 0) {
@@ -48,8 +55,20 @@ exports.trendAnalysis = async (req, res) => {
         });
       });
     }
+    let atb_trend = { ...atb_data };
+    var list_of_atbs = Object.keys(atb_data[years[0]]);
+    list_of_atbs.forEach((atb) => {
+      let reg = getRegression(atb_data, years, atb);
+      for (let i = 0; i < futureYears.length; i++) {
+        let predictedValue = reg.predict(futureYears[i]);
+        atb_trend[futureYears[i]] = {
+          ...atb_trend[futureYears[i]],
+          [atb]: { sus: predictedValue, total: 1, isPredicted: true },
+        };
+      }
+    });
 
-    return res.json(atb_data);
+    return res.json(atb_trend);
   });
 };
 
@@ -95,3 +114,19 @@ const calculateAntibiogram = (sample, bacteria, atb_data) => {
     });
   }
 };
+
+function getRegression(atb_data, years, atb) {
+  let inputs = [];
+  let outputs = [];
+  for (let i = 0; i < years.length - 1; i++) {
+    inputs.push(years[i]);
+  }
+  inputs.forEach((year) => {
+    if (atb_data[year][atb]) {
+      outputs.push(atb_data[year][atb].sus / atb_data[year][atb].total);
+    } else {
+      outputs.push(0);
+    }
+  });
+  return new SLR(inputs, outputs);
+}

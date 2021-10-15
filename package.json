@@ -29,6 +29,7 @@
     "html-pdf": "^3.0.1",
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
+    "ml-regression": "^5.0.0",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
     "node-localstorage": "^2.2.1",
