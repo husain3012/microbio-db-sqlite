@@ -1,4 +1,6 @@
 <%-include("partials/header") %> <%-include("partials/navbar") %>
+
+
 <link rel="stylesheet" href="/css/antibiogram.css" />
 <div class="container mt-2">
   <form id="antibiogram-form" method="" action="">
@@ -33,7 +35,7 @@
       <div class="col-lg-3 col-5">
         <div class="tag-input">
           <select class="form-select" name="bacterias" id="validationTags" multiple data-allow-clear="true">
-            <option selected disabled hidden value="">Bacteria(max 3)</option>
+            <option selected disabled hidden value="">Bacteria</option>
             <option value="Staphylococcus">Staphylococcus</option>
             <option value="Staphylococcus2">Staphylococcus2</option>
             <option value="Staphylococcus3">Staphylococcus3</option>
@@ -53,5 +55,7 @@
   <div id="antibiogram-table" class="p-2"></div>
 </div>
 <%-include("partials/footer") %> <%-include("partials/loader") %>
-
+<script>
+  Tags.init();
+</script>
 <script src="/js/antibiogram.js"></script>

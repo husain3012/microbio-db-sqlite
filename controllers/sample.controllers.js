@@ -139,21 +139,21 @@ exports.generateReport = async (req, res) => {
 };
 
 exports.findSample = async (req, res) => {
-  console.log('-----------------------------------------------------\n',req.body);
-  console.log('-----------------------------------------------------\n');
+  console.log("-----------------------------------------------------\n", req.body);
+  console.log("-----------------------------------------------------\n");
   let searchFields = {};
   // Validate name
   if (req.body.patientName) {
     let patientName = new RegExp(req.body.patientName, "i");
-    searchFields = {...searchFields, patientName: patientName};
+    searchFields = { ...searchFields, patientName: patientName };
   }
   // Validate ID
   if (req.body.sample_id) {
-    searchFields = {...searchFields, sample_id: req.body.sample_id};
+    searchFields = { ...searchFields, sample_id: req.body.sample_id };
   }
   // Validate sex
   if (req.body.sex) {
-    searchFields = {...searchFields, sex: req.body.sex};
+    searchFields = { ...searchFields, sex: req.body.sex };
   }
   // Validate age
   if (req.body.ageFrom) {
@@ -163,13 +163,14 @@ exports.findSample = async (req, res) => {
     if (req.body.ageTo) {
       ageTo = req.body.ageTo;
       // In case the user exchanges the inputs
-      if(ageFrom > ageTo) {
+      if (ageFrom > ageTo) {
         ageFrom = ageTo;
         ageTo = req.body.ageFrom;
       }
-      searchFields = { ...searchFields, age: { $gte: ageFrom, $lte: ageTo}};
-    } else { // If ageTo has not been entered
-      searchFields = {...searchFields, age: ageFrom};
+      searchFields = { ...searchFields, age: { $gte: ageFrom, $lte: ageTo } };
+    } else {
+      // If ageTo has not been entered
+      searchFields = { ...searchFields, age: ageFrom };
     }
   }
   // Validate Recieved on date
@@ -180,48 +181,53 @@ exports.findSample = async (req, res) => {
     if (req.body.specimenDateTo) {
       recievedTo = req.body.specimenDateTo;
       // In case the user exchanges the inputs
-      if(recievedFrom > recievedTo) {
+      if (recievedFrom > recievedTo) {
         recievedFrom = recievedTo;
         recievedTo = req.body.specimenDateFrom;
       }
-      searchFields = { ...searchFields, createdAt: { $gte: recievedFrom, $lte: recievedTo}};
-    } else { // If recievedTo has not been entered
-      searchFields = {...searchFields, createdAt: { $gte: `${recievedFrom}T00:00:00.000Z`, $lte: `${recievedFrom}T23:59:59.999Z`}}
+      searchFields = { ...searchFields, createdAt: { $gte: recievedFrom, $lte: recievedTo } };
+    } else {
+      // If recievedTo has not been entered
+      searchFields = { ...searchFields, createdAt: { $gte: `${recievedFrom}T00:00:00.000Z`, $lte: `${recievedFrom}T23:59:59.999Z` } };
     }
   }
   // Validate Dept
   if (req.body.department) {
-    searchFields = {...searchFields, department: req.body.department};
+    searchFields = { ...searchFields, department: req.body.department };
   }
   // Validate Physician/ Surgeon
   if (req.body.physician) {
-    searchFields = {...searchFields, physician: req.body.physician};
+    searchFields = { ...searchFields, physician: new RegExp(req.body.physician, "i") };
   }
   // Validate Specimen
   if (req.body.specimen) {
-    searchFields = {...searchFields, specimen: req.body.specimen};
+    searchFields = { ...searchFields, specimen: req.body.specimen };
   }
   // Validate Panel
   if (req.body.panel) {
     const panel = `sensitivity.${req.body.panel}`;
     // If bacteria name was entered
     if (req.body.bacteria) {
-      searchFields = {...searchFields, [panel]: req.body.bacteria};
-    } else { // If bacteria name was not entered
-      searchFields = {...searchFields, [panel]: {$exists: true, $ne: ""}};
+      searchFields = { ...searchFields, [panel]: req.body.bacteria };
+    } else {
+      // If bacteria name was not entered
+      searchFields = { ...searchFields, [panel]: { $exists: true, $ne: "" } };
     }
   }
   // Now send this data to database and perform the search
-  Sample.find(searchFields, (err, result) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    return res.json({
-      status: true,
-      message: result.length + " records retrieved!",
-      data: result,
+  Sample.find(searchFields)
+    .limit(req.query.limit || 1000)
+    .sort({ createdAt: -1 })
+    .exec((err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      return res.json({
+        status: true,
+        message: result.length + " records retrieved!",
+        data: result,
+      });
     });
-  });
 };
 
 exports.randomSampleGen = async (req, res) => {

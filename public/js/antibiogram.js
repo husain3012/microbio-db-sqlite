@@ -1,4 +1,4 @@
-Tags.init();
+
 
 var ctx = document.getElementById("myChart").getContext("2d");
 var antibiogramChart = new Chart(ctx, {
@@ -35,6 +35,12 @@ $("#antibiogram-form").on("submit", function (e) {
       bacterias.push(x.innerText);
     });
   bacterias = bacterias.filter((x) => x.length > 1);
+
+  if(bacterias.length>2){
+    alert("Currently, chart supports max 2 bacteria");
+    window.location.reload();
+    return;
+  }
   let startDate = $(this).find("input[name=startDate]").val();
   let endDate = $(this).find("input[name=endDate]").val();
   let panel = $(this).find("select[name=panel]").val();
