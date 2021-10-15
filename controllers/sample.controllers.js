@@ -139,11 +139,66 @@ exports.generateReport = async (req, res) => {
 };
 
 exports.findSample = async (req, res) => {
-  console.log(req.body);
+  console.log('-----------------------------------------------------\n',req.body);
+  console.log('-----------------------------------------------------\n');
+  let searchFields = {};
+  // Validate name
   if (req.body.patientName) {
-    req.body.patientName = new RegExp(req.body.patientName, "i");
+    let patientName = new RegExp(req.body.patientName, "i");
+    searchFields = {...searchFields, patientName: patientName};
   }
-  Sample.find(req.body, (err, result) => {
+  // Validate ID
+  if (req.body.sample_id) {
+    searchFields = {...searchFields, sample_id: req.body.sample_id};
+  }
+  // Validate sex
+  if (req.body.sex) {
+    searchFields = {...searchFields, sex: req.body.sex};
+  }
+  // Validate age
+  if (req.body.ageFrom) {
+    let ageFrom, ageTo;
+    ageFrom = req.body.ageFrom;
+    // If ageTo has been entered
+    if (req.body.ageTo) {
+      ageTo = req.body.ageTo;
+      // In case the user exchanges the inputs
+      if(ageFrom > ageTo) {
+        ageFrom = ageTo;
+        ageTo = req.body.ageFrom;
+      }
+      searchFields = { ...searchFields, age: { $gte: ageFrom, $lte: ageTo}};
+    } else { // If ageTo has not been entered
+      searchFields = {...searchFields, age: ageFrom};
+    }
+  }
+  // Validate Recieved on date
+  if (req.body.specimenDateFrom) {
+    let recievedFrom, recievedTo;
+    recievedFrom = req.body.specimenDateFrom;
+    // If recievedTo has been entered
+    if (req.body.specimenDateTo) {
+      recievedTo = req.body.specimenDateTo;
+      // In case the user exchanges the inputs
+      if(recievedFrom > recievedTo) {
+        recievedFrom = recievedTo;
+        recievedTo = req.body.specimenDateFrom;
+      }
+      searchFields = { ...searchFields, sampleDate: { $gte: recievedFrom, $lte: recievedTo}};
+    } else { // If recievedTo has not been entered
+      searchFields = {...searchFields, sampleDate: recievedFrom};
+    }
+  }
+  // Validate Dept
+  if (req.body.department) {
+    searchFields = {...searchFields, department: req.body.department};
+  }
+  // Validate Physician/ Surgeon
+  if (req.body.physician) {
+    searchFields = {...searchFields, physician: req.body.physician};
+  }
+  // Now send this data to database and perform the search
+  Sample.find(searchFields, (err, result) => {
     if (err) {
       return res.status(500).send(err);
     }
