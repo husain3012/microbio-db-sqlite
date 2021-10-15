@@ -2,116 +2,145 @@
 <link rel="stylesheet" href="/css/sample_details.css" />
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="sample-heading">
+  <div class="d-flex justify-content-end my-2">
+    <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-outline-dark" >Print Report</a>
+  </div>
+  <div class="container my-2 shadow-card">
+    <!-- Sample ID and Date -->
+    <div class="col-12 d-flex justify-content-between sample-details sample-heading">
+      <div>
         <p>Sample ID: <%=sample.sample_id %></p>
       </div>
+      <div>
+        <p>Date & Time: <%= new Date(sample.createdAt).toLocaleString() %></p>
+      </div>
     </div>
-    <div class="sample-details container">
+    <!-- Patient Details -->
+    <div class="sample-details row">
       <div class="row">
-        <div class="col-md-12 col-lg-6">
-          <h3>Name: <%=sample.patientName %></h3>
+        <!-- Cads no. -->
+        <div class="row">
+          <p><b>Cads no.: </b><%=sample.cadsNumber %></p>
         </div>
-        <div class="col-md-12 col-lg-6">
-          <h3>Age: <%= sample.age %></h3>
+        <!-- Name -->
+        <div class="row">
+          <p><b>Name: </b><%=sample.patientName %></p>
         </div>
-        <div class="col-md-12 col-lg-6">
-          <h3>Sex: <%= sample.sex%></h3>
-        </div>
-        <div class="col-md-12 col-lg-6">
-          <h3>Date & Time: <%= new Date(sample.createdAt).toUTCString() %></h3>
+        <!-- Age and sex -->
+        <div class="row">
+          <div class="col-4">
+            <p><b>Age: </b><%= sample.age %></p>
+          </div>
+          <div class="col-4">
+            <p><b>Sex: </b><%= sample.sex%></p>
+          </div>
         </div>
       </div>
     </div>
-
-
-    <div class="sample-details container">
-      <div class="row">
-        <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
-        <div class="col-md-12 col-lg-6">
-            <h3>Growth Time: <%= sample.sensitivity && sample.sensitivity.growthTime %></h3>
-        </div>
-          <div class="col-md-12 col-lg-6">
-            <h3>Bacteria Count: <%= sample.sensitivity && sample.sensitivity.bacterialCount %></h3>
-          </div>
-        <% } %>
-        <div class="col-md-12 col-lg-6">
-          <h3>Bacteria type: <%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></h3>
-        </div>
-        <div class="col-md-12 col-lg-6">
-          <h3>Progress: <%=sample.progress %></h3>
-        </div>
+    <!-- Sample Details -->
+    <div class="sample-details row d-flex justify-content-between">
+      <!-- Specimen Type -->
+      <div class="col-lg-3 col-6">
+        <p><b>Sample Type: </b><%=sample.specimen %></p>
+      </div>
+      <!-- Progress -->
+      <div class="col-lg-3 col-6">
+        <p><b>Progress: </b><%=sample.progress %></p>
+      </div>
+      <!-- Recieved on date -->
+      <div class="col-lg-5 col-12">
+        <p><b>Recieved on: </b><%= new Date(sample.sampleDate).toLocaleString() %></p>
       </div>
     </div>
-
-    <div class="col-md-12">
-
-      <%if(sample.sensitivity){ %>
-
-      <div class="sensitivity-table-container">
-        <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){%>
-        <div class="panel">
-          <h5>Staphylococcus Panel: <em><%=sample.sensitivity.staphylococcusName %></em></h5>
-          <div class="panel-body">
-            <% sample.sensitivity.staphylococcusPanel.forEach(ab=>{%>
-            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
-            <% }) %>
-          </div>
-
+    <!-- Growth details -->
+    <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
+      <div class="sample-details row">
+        <!-- Growth Time -->
+        <div class="col-lg-4 col-6">
+            <p><b>Growth Time: </b><%= sample.sensitivity && sample.sensitivity.growthTime %></p>
         </div>
-          <% } %>
-
-        <% if(typeof sample.sensitivity.streptococussPanel !== 'undefined' && sample.sensitivity.streptococussPanel.length > 0){%>
-        <div class="panel">
-          <h5>Streptococuss Panel: <em><%=sample.sensitivity.streptococussName %></em></h5>
-          <div class="panel-body">
-            <% sample.sensitivity.streptococussPanel.forEach(ab=>{%>
-            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
-
-            <% }) %>
-          </div>
+        <!-- Bacteria Count -->
+        <div class="col-lg-4 col-6">
+          <p><b>Bacteria Count: </b><%= sample.sensitivity && sample.sensitivity.bacterialCount %></p>
         </div>
-          <% } %>
-
-        <% if(typeof sample.sensitivity.gramNegativePanel !== 'undefined' && sample.sensitivity.gramNegativePanel.length > 0){%>
-        <div class="panel">
-          <h5>Gram-Negative Panel: <em> <%=sample.sensitivity.gramNegativeName %></em></h5>
-          <div class="panel-body">
-            <% sample.sensitivity.gramNegativePanel.forEach(ab=>{%>
-            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
-
-            <% }) %>
-          </div>
+        <!-- Bacteria Type -->
+        <div class="col-lg-4 col-12">
+          <p><b>Bacteria type: </b><%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
         </div>
-          <% } %>
-
-        <% if(typeof sample.sensitivity.pseudomonasPanel !== 'undefined' && sample.sensitivity.pseudomonasPanel.length > 0){%>
-        <div class="panel">
-          <h5>Pseudomonas Panel: <em><%=sample.sensitivity.pseudomonasName %></em></h5>
-          <div class="panel-body">
-            <% sample.sensitivity.pseudomonasPanel.forEach(ab=>{%>
-            <div class="sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
-
-            <% }) %>
-          </div>
-        </div>
-          <% } %>
       </div>
-        <% } %>
+    <% } %>
+    <!-- Sensitivity -->
+    <%if(sample.sensitivity){ %>
+      <div class="col-md-12 sample-details">
+      <h2><u>Sensitivity Table</u></h2>
+      <!-- Sensititivty Table -->
+        <div class="sensitivity-table-container">
+          <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){%>
+          <div class="panel">
+            <h5>Staphylococcus Panel: <em></b><%=sample.sensitivity.staphylococcusName %></em></h5>
+            <div class="panel-body">
+              <% sample.sensitivity.staphylococcusPanel.forEach(ab=>{%>
+              <div class="shadow-card sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+              <% }) %>
+            </div>
 
-        <%if(sample.remarks){ %>
-        <div class="sample-details col-md-12">
-          <h3>Remarks: <%= sample.remarks %></h3>
+          </div>
+            <% } %>
+
+          <% if(typeof sample.sensitivity.streptococussPanel !== 'undefined' && sample.sensitivity.streptococussPanel.length > 0){%>
+          <div class="panel">
+            <h5>Streptococuss Panel: <em></b><%=sample.sensitivity.streptococussName %></em></h5>
+            <div class="panel-body">
+              <% sample.sensitivity.streptococussPanel.forEach(ab=>{%>
+              <div class="shadow-card sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+              <% }) %>
+            </div>
+          </div>
+            <% } %>
+
+          <% if(typeof sample.sensitivity.gramNegativePanel !== 'undefined' && sample.sensitivity.gramNegativePanel.length > 0){%>
+          <div class="panel">
+            <h5>Gram-Negative Panel: <em> </b><%=sample.sensitivity.gramNegativeName %></em></h5>
+            <div class="panel-body">
+              <% sample.sensitivity.gramNegativePanel.forEach(ab=>{%>
+              <div class="shadow-card sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+              <% }) %>
+            </div>
+          </div>
+            <% } %>
+
+          <% if(typeof sample.sensitivity.pseudomonasPanel !== 'undefined' && sample.sensitivity.pseudomonasPanel.length > 0){%>
+          <div class="panel">
+            <h5>Pseudomonas Panel: <em></b><%=sample.sensitivity.pseudomonasName %></em></h5>
+            <div class="panel-body">
+              <% sample.sensitivity.pseudomonasPanel.forEach(ab=>{%>
+              <div class="shadow-card sensi-item <%=ab.sensitivity %>"><strong><%=ab.antib%>: </strong> <%= ab.sensitivity %></div>
+
+              <% }) %>
+            </div>
+          </div>
+            <% } %>
         </div>
-        <% } %>
-      <div class="col-md-12 sample-doc">
-        <p>Physician Name: <%= sample.physician %></p>
       </div>
-
-      <a href="/printReport/<%= sample.sample_id %>"  id="print-content" class="btn btn-light" >Print Report</a>
-      <button class="btn btn-light" onclick="window.history.back()">Back</button>
-    </div>
+    <% } %>
+    <!-- Remarks -->
+    <%if(sample.remarks){ %>
+      <div class="sample-details">
+        <p><b>Remarks: </b><%= sample.remarks %></p>
+      </div>
+    <% } %>
+    <!-- Exam Required -->
+    <%if(sample.examRequired){ %>
+      <div class="sample-details">
+        <p><b>Remarks: </b><%= sample.examRequired %></p>
+      </div>
+    <% } %>
+    <!-- Physician name -->
+    <div class="col-md-12 sample-doc">
+      <p><b>Physician Name: </b><%= sample.physician %></p>
+    </div>      
   </div>
 </div>
 <%-include("partials/footer") %>
