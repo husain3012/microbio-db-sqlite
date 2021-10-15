@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "System to store sample records and generate reports for microbiology department",
   "main": "main.js",
+  "build": {
+    "icon": "build/icon.ico"
+  },
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
@@ -47,10 +50,6 @@
   "productName": "microbioDB",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/saquibali7/microbio-db.git"
-  },
-  "bugs": {
-    "url": "https://github.com/saquibali7/microbio-db/issues"
-  },
-  "homepage": "https://github.com/saquibali7/microbio-db#readme"
+    "url": "https://github.com/husain3012/microbio-db"
+  }
 }

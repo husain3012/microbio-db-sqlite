@@ -10,12 +10,14 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
     },
   });
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+  mainWindow.removeMenu();
 
   mainWindow.loadURL("http://localhost:3000"); //ADD THIS
   mainWindow.on("closed", function () {
