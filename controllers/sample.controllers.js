@@ -184,9 +184,9 @@ exports.findSample = async (req, res) => {
         recievedFrom = recievedTo;
         recievedTo = req.body.specimenDateFrom;
       }
-      searchFields = { ...searchFields, sampleDate: { $gte: recievedFrom, $lte: recievedTo}};
+      searchFields = { ...searchFields, createdAt: { $gte: recievedFrom, $lte: recievedTo}};
     } else { // If recievedTo has not been entered
-      searchFields = {...searchFields, sampleDate: recievedFrom};
+      searchFields = {...searchFields, createdAt: { $gte: `${recievedFrom}T00:00:00.000Z`, $lte: `${recievedFrom}T23:59:59.999Z`}}
     }
   }
   // Validate Dept
@@ -196,6 +196,14 @@ exports.findSample = async (req, res) => {
   // Validate Physician/ Surgeon
   if (req.body.physician) {
     searchFields = {...searchFields, physician: req.body.physician};
+  }
+  // Validate Specimen
+  if (req.body.specimen) {
+    searchFields = {...searchFields, specimen: req.body.specimen};
+  }
+  // Validate Panel
+  if (req.body.panel) {
+    searchFields = {...searchFields, sensitivity: {kaunsiFieldHogiIdhar: req.body.panel}};
   }
   // Now send this data to database and perform the search
   Sample.find(searchFields, (err, result) => {

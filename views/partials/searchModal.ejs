@@ -1,108 +1,125 @@
-  <!-- Search Modal -->
-  <link rel="stylesheet" href="/css/searchModal.css">
-  <div id="searchModal" class="modal">
-    <div class="container modal-content shadow-card">
-      <!-- Form -->
-      <form class="row search-form" action="/search" method="POST">
-        <!-- Sample ID -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Sample ID</label>
-            <input class="form-control search-form-input" type="number" name="sample_id" />
-          </div>
+<!-- Search Modal -->
+<link rel="stylesheet" href="/css/searchModal.css">
+<div id="searchModal" class="modal">
+  <div class="container modal-content shadow-card">
+    <!-- Form -->
+    <form class="row search-form" action="/search" method="POST">
+      <!-- Sample ID -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Sample ID</label>
+          <input class="form-control search-form-input" type="number" name="sample_id" />
         </div>
-        <!-- Patient Name -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="form-field">
-            <input class="form-control search-form-input" type="text" name="patientName" placeholder="Patient Name" />
-          </div>
+      </div>
+      <!-- Patient Name -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="form-field">
+          <input class="form-control search-form-input" type="text" name="patientName" placeholder="Patient Name" />
         </div>
-        <!-- Age Range -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Age</label>
-            <input type="number" name="ageFrom" class="form-control" placeholder="From" min="0" />
-            <input type="number" name="ageTo" class="form-control" placeholder="To" min="0" />
-          </div>
+      </div>
+      <!-- Age Range -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Age</label>
+          <input type="number" name="ageFrom" class="form-control" placeholder="From" min="0" />
+          <input type="number" name="ageTo" class="form-control" placeholder="To" min="0" />
         </div>
-        <!-- Sex -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Sex: </label>
-            <input name="sex" type="radio" class="btn-check" value="m" id="sex-male" />
-            <label class="btn btn-outline-dark" for="sex-male">Male</label>
-            <input name="sex" type="radio" class="btn-check" value="f" id="sex-female" />
-            <label class="btn btn-outline-dark" for="sex-female">Female</label>
-            <input name="sex" type="radio" class="btn-check" value="o" id="sex-others" />
-            <label class="btn btn-outline-dark" for="sex-others">Other</label>
-          </div>
+      </div>
+      <!-- Sex -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Sex: </label>
+          <input name="sex" type="radio" class="btn-check" value="m" id="sex-male" />
+          <label class="btn btn-outline-dark" for="sex-male">Male</label>
+          <input name="sex" type="radio" class="btn-check" value="f" id="sex-female" />
+          <label class="btn btn-outline-dark" for="sex-female">Female</label>
+          <input name="sex" type="radio" class="btn-check" value="o" id="sex-others" />
+          <label class="btn btn-outline-dark" for="sex-others">Other</label>
         </div>
-        <!-- Specimen recieved on -->
-        <div class="col-lg-8 col-12 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Received On:</label>
-            <input type="date" name="specimenDateFrom" class="form-control" />
-            <input type="date" name="specimenDateTo" class="form-control" />
-          </div>
+      </div>
+      <!-- Specimen recieved on -->
+      <div class="col-lg-8 col-12 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Received On:</label>
+          <input type="date" name="specimenDateFrom" class="form-control" />
+          <input type="date" name="specimenDateTo" class="form-control" />
         </div>
-        <!-- Department -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Department: </label>
-            <select name="department" class="form-select">
-              <option value="" selected disabled hidden>Choose Department</option>
-              <option value="microbiology">Microbiology</option>
-              <option value="pathology">Pathology</option>
-              <option value="forensicMed">Forensic Medicine</option>
-              <option value="medicine">Medicine</option>
-              <option value="neuroSurgery">Neuro Surgery</option>
-              <option value="obstetricsGynaecology">Obstetrics and Gynaecology</option>
-              <option value="ophthalmology">Ophthalmology</option>
-              <option value="orthopaedicSurgery">Orthopaedic Surgery</option>
-              <option value="paediatrics">Paediatrics</option>
-              <option value="paediatricSurgery">Paediatric Surgery</option>
-              <option value="pharmacology">Pharmacology</option>
-            </select>
-          </div>
+      </div>
+      <!-- Department -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Department: </label>
+          <select name="department" class="form-select">
+            <option value="" selected disabled hidden>Choose Department</option>
+            <option value="microbiology">Microbiology</option>
+            <option value="pathology">Pathology</option>
+            <option value="forensicMed">Forensic Medicine</option>
+            <option value="medicine">Medicine</option>
+            <option value="neuroSurgery">Neuro Surgery</option>
+            <option value="obstetricsGynaecology">Obstetrics and Gynaecology</option>
+            <option value="ophthalmology">Ophthalmology</option>
+            <option value="orthopaedicSurgery">Orthopaedic Surgery</option>
+            <option value="paediatrics">Paediatrics</option>
+            <option value="paediatricSurgery">Paediatric Surgery</option>
+            <option value="pharmacology">Pharmacology</option>
+          </select>
         </div>
-        <!-- Physician/ Surgeon -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <label class="input-group-text">Physician/ Surgeon</label>
-            <input name="physician" type="text" class="form-control" />
-          </div>
+      </div>
+      <!-- Physician/ Surgeon -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text">Physician/ Surgeon</label>
+          <input name="physician" type="text" class="form-control" />
         </div>
-        <!-- Specimen -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <select id="specimen-type" name="specimen" class="form-select">
-              <option value="" selected disabled hidden>Choose Specimen</option>
-              <option value="urine">Urine</option>
-              <option value="puss">Puss</option>
-              <option value="blood">Blood</option>
-              <option id="other-specimen-value" value="other">Other</option>
-            </select>
-            <input id="other-specimen"  type="text" class="form-control" placeholder="Specimen Type" />
-          </div>
-        </div>        
-        <!-- Bacteria -->
-        <div class="col-lg-4 col-6 mb-3">
-          <div class="input-group">
-            <select id="bacteria-panel" name="panel" class="form-select">
-              <option value="" selected disabled hidden>Choose Panel</option>
-              <option value="urine">Staphylococcus</option>
-              <option value="puss">Streptococcus</option>
-              <option value="blood">Gram Negative</option>
-              <option id="other-specimen-value" value="other">Other</option>
-            </select>
-            <input id="bacteria-name"  type="text" class="form-control" placeholder="Bacteria" />
-          </div>
-        </div>        
-        <!-- Submit -->
-        <div>
-          <button class="btn btn-primary" type="submit"><img src="assets/icons/search.svg" style="width: 25px" /></button>
-          <button class="btn btn-outline-primary closeModal">Cancel</button>
+      </div>
+      <!-- Specimen -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <label class="input-group-text" for="inputGroupSelect01">Specimen: </label>
+          <select id="specimen-type" name="specimen" class="form-select">
+            <option value="" selected disabled hidden>Choose Specimen</option>
+            <option value="urine">Urine</option>
+            <option value="puss">Puss</option>
+            <option value="blood">Blood</option>
+            <option id="other-specimen-value" value="other">Other</option>
+          </select>
+          <input id="other-specimen"  type="text" class="form-control" placeholder="Type" />
         </div>
-      </form>
-    </div>
+      </div>        
+      <!-- Bacteria -->
+      <div class="col-lg-4 col-6 mb-3">
+        <div class="input-group">
+          <!-- Panel -->
+          <select id="bacteria-panel" name="panel" class="form-select">
+            <option value="" selected disabled hidden>Choose Panel</option>
+            <option value="staphylococcus">Staphylococcus</option>
+            <option value="streptococuss">Streptococcus</option>
+            <option value="gramNegative">Gram Negative</option>
+            <option value="pseudomonas">Pseudomonas</option>
+          </select>
+          <!-- Bacteria name -->
+          <input id="bacteria-name" name="bacteria" type="text" class="form-control" placeholder="Bacteria" />
+        </div>
+      </div>        
+      <!-- Submit -->
+      <div>
+        <button class="btn btn-primary" type="submit"><img src="assets/icons/search.svg" style="width: 25px" /></button>
+        <button class="btn btn-outline-primary closeModal">Cancel</button>
+      </div>
+    </form>
   </div>
+</div>
+
+<script>
+  $("#other-specimen").hide();
+  $("#specimen-type").on("change", function () {
+    if ($(this).val() == "other") {
+      $("#other-specimen").show();
+      $("#other-specimen").on("change", function () {
+        $("#other-specimen-value").val($(this).val());
+      });
+    } else {
+      $("#other-specimen").hide();
+    }
+  });
+</script>
