@@ -203,7 +203,13 @@ exports.findSample = async (req, res) => {
   }
   // Validate Panel
   if (req.body.panel) {
-    searchFields = {...searchFields, sensitivity: {kaunsiFieldHogiIdhar: req.body.panel}};
+    const panel = `sensitivity.${req.body.panel}`;
+    // If bacteria name was entered
+    if (req.body.bacteria) {
+      searchFields = {...searchFields, [panel]: req.body.bacteria};
+    } else { // If bacteria name was not entered
+      searchFields = {...searchFields, [panel]: {$ne: ""}};
+    }
   }
   // Now send this data to database and perform the search
   Sample.find(searchFields, (err, result) => {

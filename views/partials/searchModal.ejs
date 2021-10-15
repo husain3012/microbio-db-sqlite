@@ -92,10 +92,10 @@
           <!-- Panel -->
           <select id="bacteria-panel" name="panel" class="form-select">
             <option value="" selected disabled hidden>Choose Panel</option>
-            <option value="staphylococcus">Staphylococcus</option>
-            <option value="streptococuss">Streptococcus</option>
-            <option value="gramNegative">Gram Negative</option>
-            <option value="pseudomonas">Pseudomonas</option>
+            <option value="staphylococcusName">Staphylococcus</option>
+            <option value="streptococussName">Streptococcus</option>
+            <option value="gramNegativeName">Gram Negative</option>
+            <option value="pseudomonasName">Pseudomonas</option>
           </select>
           <!-- Bacteria name -->
           <input id="bacteria-name" name="bacteria" type="text" class="form-control" placeholder="Bacteria" />
@@ -111,6 +111,7 @@
 </div>
 
 <script>
+  // Hide/ Show Other Specimen name
   $("#other-specimen").hide();
   $("#specimen-type").on("change", function () {
     if ($(this).val() == "other") {
@@ -121,5 +122,10 @@
     } else {
       $("#other-specimen").hide();
     }
+  });
+  // Hide/ Show Bacteria name
+  $("#bacteria-name").hide();
+  $("#bacteria-panel").on("change", function () {
+    $("#bacteria-name").show();
   });
 </script>
