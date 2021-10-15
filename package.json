@@ -9,7 +9,7 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "electron-builder --win",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [
@@ -32,6 +32,7 @@
     "html-pdf": "^3.0.1",
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "ml-regression": "^5.0.0",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",

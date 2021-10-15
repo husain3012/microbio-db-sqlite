@@ -19,7 +19,16 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // process.env.DATABASE
+var fs = require("fs");
+var util = require("util");
+var log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
+var log_stdout = process.stdout;
 
+console.log = function (d) {
+  //
+  log_file.write(util.format(d) + "\n");
+  log_stdout.write(util.format(d) + "\n");
+};
 mongoose
   .connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("DB connected"))
@@ -30,7 +39,11 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(morgan("combined"));
+app.use(
+  morgan("common", {
+    stream: fs.createWriteStream("./access.log", { flags: "a" }),
+  })
+);
 app.use(cookieParser());
 
 app.use(function (req, res, next) {
