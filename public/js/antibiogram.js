@@ -1,3 +1,5 @@
+Tags.init();
+
 var ctx = document.getElementById("myChart").getContext("2d");
 var antibiogramChart = new Chart(ctx, {
   type: "bar",
@@ -26,9 +28,13 @@ $("#antibiogram-form").on("submit", function (e) {
   $(`#loader`).addClass("active");
   clearChart(antibiogramChart);
   $("#antibiogram-table").empty();
-  let bacterias = $(this).find("input[name=bacteria]").val().split(", ");
-  console.log(bacterias);
-
+  let bacterias = [];
+  $(this)
+    .find(".tag-input .dropdown span")
+    .each((i, x) => {
+      bacterias.push(x.innerText);
+    });
+  bacterias = bacterias.filter((x) => x.length > 1);
   let startDate = $(this).find("input[name=startDate]").val();
   let endDate = $(this).find("input[name=endDate]").val();
   let panel = $(this).find("select[name=panel]").val();
@@ -44,13 +50,14 @@ $("#antibiogram-form").on("submit", function (e) {
           let data = [];
           let labels = [];
 
-          // $("#antibiogram-table").append(`<table class='m-5 d-inline' id='${bacteria}'><tr><th class='table-heading'>${bacteria}</th></tr><tr><th>Antibiotic</th><th>Susceptible</th><th>Total</th><th>Fraction</th></tr></table>`);
-
+          $("#antibiogram-table").append(`<h5>${bacteria}</h5>`);
           $("#antibiogram-table").append(`<table id='${bacteria}'></table>`);
+          $("#antibiogram-table").append(`<hr/>`);
+
           let table_data = [];
           atb_panel.data.data.forEach((atb) => {
             if (response.data[atb.name]) {
-              table_data.push([atb.name, response.data[atb.name].sus || 0, response.data[atb.name].total, (Math.floor((response.data[atb.name].sus / response.data[atb.name].total) * 1000) / 1000)||0]);
+              table_data.push([atb.name, response.data[atb.name].sus || 0, response.data[atb.name].total, Math.floor((response.data[atb.name].sus / response.data[atb.name].total) * 1000) / 1000 || 0]);
             }
             labels.push(atb.name);
 
@@ -64,10 +71,8 @@ $("#antibiogram-form").on("submit", function (e) {
           $(`#${bacteria}`).DataTable({
             data: table_data,
             columns: [{ title: "name" }, { title: "sus" }, { title: "total" }, { title: "fraction" }],
-            dom: 'lBfrtip',
-            buttons: [
-              'copy', 'csv', 'excel', 'pdf'
-          ]
+            dom: "lBfrtip",
+            buttons: ["copy", "csv", "excel", "pdf"],
           });
 
           addChartData(antibiogramChart, labels, data, bacteria, index);

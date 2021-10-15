@@ -1,12 +1,25 @@
 const data = {
-  labels: [],
-  datasets: [],
+  labels: [0],
+  datasets: [{ data: [0] }],
 };
 
 var ctx = document.getElementById("trend-chart").getContext("2d");
 var trendChart = new Chart(ctx, {
   type: "line",
   data: data,
+});
+
+new autoComplete({
+  selector: '#single-bacteria-input',
+  minChars: 1,
+  source: function(term, suggest){
+      term = term.toLowerCase();
+      var choices = ['Staphylococcus','Staphylococcus2','Staphylococcus3','Pseudomonas'];
+      var matches = [];
+      for (i=0; i<choices.length; i++)
+          if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+      suggest(matches);
+  }
 });
 
 $("#trend-analysis-form").on("submit", function (e) {
@@ -42,11 +55,13 @@ $("#trend-analysis-form").on("submit", function (e) {
               }
             }
           }
+          let color = randomRGBA();
           datasets.push({
             label: atb.name,
             data: atb_data,
             fill: false,
-            borderColor: randomRGBA(1),
+            borderColor: color,
+            backgroundColor: color,
             tension: 0.1,
           });
         });

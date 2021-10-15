@@ -19,8 +19,8 @@
       </div>
       <!-- Panel -->
       <div class="col-lg-3 col-5">
-        <div class="form-floating">
-          <select required class="form-control" name="panel">
+        <div class="">
+          <select required class="form-control p-3" name="panel">
             <option hidden value="">Select Panel</option>
             <option value="staphylococcus">Staphylococcus</option>
             <option value="streptococcus">Streptococcus</option>
@@ -31,9 +31,14 @@
       </div>
       <!-- Bacteria -->
       <div class="col-lg-3 col-5">
-        <div class="form-floating">
-          <input required class="form-control" type="text" name="bacteria" />
-          <label class="form-label">Bacteria(s):</label>
+        <div class="tag-input">
+          <select class="form-select" name="bacterias" id="validationTags" multiple data-allow-clear="true">
+            <option selected disabled hidden value="">Bacteria(max 3)</option>
+            <option value="Staphylococcus">Staphylococcus</option>
+            <option value="Staphylococcus2">Staphylococcus2</option>
+            <option value="Staphylococcus3">Staphylococcus3</option>
+            <option value="Pseudomonas">Pseudomonas</option>
+          </select>
         </div>
       </div>
       <!-- Submit button -->
@@ -45,9 +50,7 @@
 </div>
 <div class="container">
   <canvas id="myChart" width="500" height="200"></canvas>
-  <div id="antibiogram-table" class="p-2">
-    
-  </div>
+  <div id="antibiogram-table" class="p-2"></div>
 </div>
 <%-include("partials/footer") %> <%-include("partials/loader") %>
 
