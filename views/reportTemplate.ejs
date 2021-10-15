@@ -1,8 +1,8 @@
-<!-- <%-include('partials/header')%> -->
+<%-include('partials/header')%>
 
 <div id="print-content">
   <style>
-    .report-table tr{
+    .report-table tr {
       margin-left: 0;
       margin-right: 0;
     }
@@ -13,8 +13,6 @@
       font-size: 12px;
       margin-left: 0;
       margin-right: 0;
-
-
     }
 
     .report-table td .ab-sensi-container {
@@ -26,27 +24,25 @@
     }
   </style>
 
-<h3>ID: <%= sample.sample_id %></h3>
- <p><strong>Name:</strong> <%= sample.patientName %></p>
- <p><strong>Age:</strong> <%= sample.age %></p>
- <p> <strong>Sex:</strong> <%= sample.sex%></p>
- <p><strong>Date:</strong> <%= new Date(sample.createdAt).toUTCString() %></p>
-
- <hr>
-
- <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
-     <p><strong>Growth Time:</strong> <%= sample.sensitivity && sample.sensitivity.growthTime %></p>
-     <p><strong>Bacteria Count:</strong> <%= sample.sensitivity && sample.sensitivity.bacterialCount %></p>
- <% } %>
-
-   <p><strong>Bacteria type:</strong> <%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
-   <p><strong>Progress:</strong> <%=sample.progress %></p>
-
+  <h3>ID: <%= sample.sample_id %></h3>
+  <p><strong>Name:</strong> <%= sample.patientName %></p>
+  <p><strong>Age:</strong> <%= sample.age %></p>
+  <p><strong>Sex:</strong> <%= sample.sex%></p>
+  <p><strong>Date:</strong> <%= new Date(sample.createdAt).toUTCString() %></p>
 
   <hr />
 
+  <%if(sample.sensitivity && sample.sensitivity.growthTime) {%>
+  <p><strong>Growth Time:</strong> <%= sample.sensitivity && sample.sensitivity.growthTime %></p>
+  <p><strong>Bacteria Count:</strong> <%= sample.sensitivity && sample.sensitivity.bacterialCount %></p>
+  <% } %>
 
-    <h5>Sensitivity:</h5>
+  <p><strong>Bacteria type:</strong> <%=sample.sensitivity.aerobic?"Aerobic":"Anaerobic" %></p>
+  <p><strong>Progress:</strong> <%=sample.progress %></p>
+
+  <hr />
+
+  <h5>Sensitivity:</h5>
   <% let current_ab = {} %>
   <table class="report-table">
     <% sample.sensitivity.staphylococcusPanel %> <% if(typeof sample.sensitivity.staphylococcusPanel !== 'undefined' && sample.sensitivity.staphylococcusPanel.length > 0){ %>
@@ -126,9 +122,7 @@
     <% } %> <% current_ab = {} %>
   </table>
   <%if(sample.remarks){ %>
-    <p><strong>Remarks:</strong> <%= sample.remarks %><p>
+  <p><strong>Remarks:</strong> <%= sample.remarks %></p>
   <% } %>
   <hr />
-
-  <p><strong>Physician:</strong> <%= sample.physician %></[]>
 </div>

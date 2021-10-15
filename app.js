@@ -18,7 +18,6 @@ const morgan = require("morgan");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// process.env.DATABASE
 var fs = require("fs");
 var util = require("util");
 var log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });

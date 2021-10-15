@@ -3,7 +3,7 @@ var LocalStorage = require("node-localstorage").LocalStorage;
 var localStorage = new LocalStorage("./sessionData");
 const axios = require("axios");
 const { dialog } = require("electron");
-
+const phantomjs = require('phantomjs-prebuilt')
 const pdf = require("html-pdf");
 
 exports.createSample = async (req, res) => {
@@ -116,6 +116,7 @@ exports.generateReport = async (req, res) => {
     } else {
       dialog.showOpenDialog({ properties: ["openFile", "openDirectory"] }).then((result) => {
         const options = {
+          phantomPath: phantomjs.path,
           width: "396mm",
           height: "280mm",
           orientation: "landscape",
@@ -129,7 +130,6 @@ exports.generateReport = async (req, res) => {
               }
               res.status(200).send(pdfres);
             });
-           
           })
           .catch((error) => {
             res.send(error);
