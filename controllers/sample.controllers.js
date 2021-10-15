@@ -208,7 +208,7 @@ exports.findSample = async (req, res) => {
     if (req.body.bacteria) {
       searchFields = {...searchFields, [panel]: req.body.bacteria};
     } else { // If bacteria name was not entered
-      searchFields = {...searchFields, [panel]: {$ne: ""}};
+      searchFields = {...searchFields, [panel]: {$exists: true, $ne: ""}};
     }
   }
   // Now send this data to database and perform the search
