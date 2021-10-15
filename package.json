@@ -9,7 +9,7 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --win",
+    "dist": "electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [
