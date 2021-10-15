@@ -114,7 +114,7 @@ exports.generateReport = async (req, res) => {
         message: "Sample not found!",
       });
     } else {
-      dialog.showOpenDialog({ properties: ["openFile", "openDirectory", "multiSelections"] }).then((result) => {
+      dialog.showOpenDialog({ properties: ["openFile", "openDirectory"] }).then((result) => {
         const options = {
           width: "396mm",
           height: "280mm",
@@ -129,6 +129,7 @@ exports.generateReport = async (req, res) => {
               }
               res.status(200).send(pdfres);
             });
+           
           })
           .catch((error) => {
             res.send(error);

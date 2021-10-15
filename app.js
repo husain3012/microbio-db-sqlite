@@ -241,14 +241,16 @@ app.get("/printReport/:sample_id", requireAuth, (req, res) => {
 
       axios.get(serverRoot + "/api/sample/report/" + req.params.sample_id).then((print) => {
         if (response.status) {
-          res.render("print_report", { sample: response.data.data, staphylococcusData, streptococussData, gramNegativeData, pseudomonasData, printed: print.data.filename, user: req.user });
+          res.redirect("/")
+          // res.render("print_report", { sample: response.data.data, staphylococcusData, streptococussData, gramNegativeData, pseudomonasData, printed: print.data.filename, user: req.user });
         }
       });
+      
     });
   });
 });
 
-app.get("/printTemplate/:sample_id", requireAuth, (req, res) => {
+app.get("/printTemplate/:sample_id", (req, res) => {
   axios.get(serverRoot + "/api/sample/get/" + req.params.sample_id).then((response) => {
     axios.get(serverRoot + "/api/antibiotic/getAll").then((antibioticResponse) => {
       const staphylococcusData = antibioticResponse.data.data.filter((antibiotic) => antibiotic.panel === "staphylococcus");
