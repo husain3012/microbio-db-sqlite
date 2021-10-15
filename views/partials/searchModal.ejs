@@ -8,7 +8,7 @@
         <div class="col-lg-4 col-6 mb-3">
           <div class="input-group">
             <label class="input-group-text">Sample ID</label>
-            <input class="form-control search-form-input" type="text" name="sample_id" />
+            <input class="form-control search-form-input" type="number" name="sample_id" />
           </div>
         </div>
         <!-- Patient Name -->
@@ -21,8 +21,8 @@
         <div class="col-lg-4 col-6 mb-3">
           <div class="input-group">
             <label class="input-group-text">Age</label>
-            <input type="number" name="ageFrom" class="form-control" placeholder="From" />
-            <input type="number" name="ageTo" class="form-control" placeholder="To" />
+            <input type="number" name="ageFrom" class="form-control" placeholder="From" min="0" />
+            <input type="number" name="ageTo" class="form-control" placeholder="To" min="0" />
           </div>
         </div>
         <!-- Sex -->
