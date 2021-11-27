@@ -33,6 +33,8 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((err) => {
     console.log(err);
+    
+    
   });
 
 app.use(express.urlencoded({ extended: true }));
