@@ -58,6 +58,6 @@
   "productName": "microbioDB",
   "repository": {
     "type": "git",
-    "url": "https://github.com/husain3012/microbio-db"
+    "url": "https://github.com/husain3012/microbio-db-sqlite"
   }
 }

@@ -15,6 +15,11 @@ var localStorage = new LocalStorage("./sessionData");
 const morgan = require("morgan");
 const db = require("./utils/database");
 const User = require("./models/auth.model");
+const fs = require("fs");
+const util = require("util");
+const log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
+const log_stdout = process.stdout;
+
 if (process.env.NODE_ENV === "dev") {
   app.use(morgan("dev"));
 } else {
@@ -24,22 +29,20 @@ if (process.env.NODE_ENV === "dev") {
   };
   app.use(
     morgan("common", {
-      stream: fs.createWriteStream("./access.log", { flags: "a" }),
+      stream: fs.createWriteStream(__dirname + "/access.log", { flags: "a" }),
     })
   );
 }
-
-
 
 // const Sensitivity = require("./models/sensitivity.model");
 
 // connect to database
 // Sample.hasOne(Sensitivity);
 db.sync()
-  .then( () => {
+  .then(() => {
     console.log("Database connected");
     // create default user if not exists
-    User.findOne({ where: { username: "admin" } }).then(async(user) => {
+    User.findOne({ where: { username: "admin" } }).then(async (user) => {
       if (!user) {
         const defaultUser = await User.create({
           username: "admin",
@@ -49,19 +52,13 @@ db.sync()
         console.log("Default user created", defaultUser);
       }
     });
-    console
+    console;
   })
   .catch((err) => console.log(err));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
-var fs = require("fs");
-var util = require("util");
-var log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
-var log_stdout = process.stdout;
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
