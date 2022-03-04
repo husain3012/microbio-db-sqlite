@@ -1,45 +1,48 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
-const antibioticsSchema = require("./antibiotics.model").schema;
-const sensitivitySchema = new mongoose.Schema(
-  {
-    growthTime: {
-      type: Number,
-    },
-    aerobic: {
-      type: Boolean,
-    },
-    anaerobic: {
-      type: Boolean,
-    },
-    bacterialCount: {
-      type: Number,
-    },
-    staphylococcusName: {
-      type: String,
-    },
-    staphylococcusPanel: {
-      type: Array,
-    },
-    streptococussName: {
-      type: String,
-    },
-    streptococussPanel: {
-      type: Array,
-    },
-    gramNegativeName: {
-      type: String,
-    },
-    gramNegativePanel: {
-      type: Array,
-    },
-    pseudomonasName: {
-      type: String,
-    },
-    pseudomonasPanel: {
-      type: Array,
-    },
-  },
-  { timestamps: true }
-);
-module.exports = mongoose.model("Sensitivity", sensitivitySchema);
+// const Sequelize = require("sequelize");
+// const sequelize = require("../utils/database");
+
+
+// const sensitivity = sequelize.define("sensitivity", {
+//   growthTime: {
+//     type: Sequelize.NUMBER,
+//   },
+//   aerobic: {
+//     type: Sequelize.BOOLEAN,
+//   },
+//   anaerobic: {
+//     type: Sequelize.BOOLEAN,
+//   },
+//   bacterialCount: {
+//     type: Sequelize.NUMBER,
+//   },
+//   staphylococcusName: {
+//     type: Sequelize.STRING,
+//   },
+//   staphylococcusPanel: {
+//     type: Sequelize.ARRAY(Sequelize.STRING),
+//   },
+//   streptococussName: {
+//     type: Sequelize.STRING,
+//   },
+//   streptococussPanel: {
+//     type: Sequelize.ARRAY(Sequelize.STRING),
+//   },
+//   gramNegativeName: {
+//     type: Sequelize.STRING
+//   },
+//   gramNegativePanel: {
+//     type: Sequelize.ARRAY(Sequelize.STRING),
+//   },
+//   pseudomonasName: {
+//     type: Sequelize.STRING,
+//   },
+//   pseudomonasPanel: {
+//     type: Sequelize.ARRAY(Sequelize.STRING),
+//   },
+//   created_at: {
+//     type: "TIMESTAMP",
+//     defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+//     allowNull: false,
+//   },
+// });
+// module.exports = sensitivity;

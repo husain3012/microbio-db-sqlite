@@ -126,3 +126,9 @@ dist
 
 # customs
 electron-builder.yml
+
+# sqlite
+.sqlite-journal
+.sqlite-shm
+.sqlite-wal
+*.sqlite

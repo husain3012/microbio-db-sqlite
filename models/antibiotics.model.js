@@ -1,12 +1,18 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
-const antibioticsSchema = new mongoose.Schema({
+const Sequelize = require("sequelize");
+const sequelize = require("../utils/database");
+
+const antibiotics = sequelize.define("antibiotics", {
+  shortName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   name: {
-    type: String,
+    type: Sequelize.STRING,
   },
 
   panel: {
-    type: String,
+    type: Sequelize.STRING,
+    allowNull: false,
   },
 });
-module.exports = mongoose.model("Antibiotics", antibioticsSchema);
+module.exports = antibiotics;

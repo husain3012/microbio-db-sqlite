@@ -1,56 +1,54 @@
-const mongoose = require("mongoose");
-const sensitivitySchema = require("./sensitivity.model").schema;
-const { ObjectId } = mongoose.Schema;
-const sampleSchema = new mongoose.Schema(
-  {
-    sample_id: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-    patientName: {
-      type: String,
-      required: true,
-    },
-    age: {
-      type: Number,
-      required: true,
-    },
-    sex: {
-      type: String,
-    },
-    cadsNumber: {
-      type: Number,
-    },
-    specimen: {
-      type: String,
-      required: true,
-    },
-    sampleDate: {
-      type: Date,
-    },
-    department: {
-      type: String,
-    },
-    physician: {
-      type: String,
-    },
-    diagnosis: {
-      type: String,
-    },
-    examRequired: {
-      type: String,
-    },
-    progress: {
-      type: String,
-    },
-    remarks:{
-      type: String
-    },
-    sensitivity: {
-      type: sensitivitySchema,
-    },
+const Sequelize = require("sequelize");
+const sequelize = require("../utils/database");
+
+const sampleSchema = sequelize.define("sample", {
+  sample_id: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
   },
-  { timestamps: true }
-);
-module.exports = mongoose.model("sample", sampleSchema);
+  patientName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  age: {
+    type: Sequelize.NUMBER,
+    allowNull: false,
+  },
+  sex: {
+    type: Sequelize.CHAR,
+  },
+  cadsNumber: {
+    type: Sequelize.NUMBER,
+  },
+  specimen: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  sampleDate: {
+    type: Sequelize.DATE,
+  },
+  department: {
+    type: Sequelize.STRING,
+  },
+  physician: {
+    type: Sequelize.STRING,
+  },
+  diagnosis: {
+    type: Sequelize.TEXT,
+  },
+  examRequired: {
+    type: Sequelize.STRING,
+  },
+  progress: {
+    type: Sequelize.STRING,
+  },
+  remarks: {
+    type: Sequelize.TEXT,
+  },
+  sensitivity: {
+    type: Sequelize.JSONB,
+  },
+
+});
+module.exports = sampleSchema;

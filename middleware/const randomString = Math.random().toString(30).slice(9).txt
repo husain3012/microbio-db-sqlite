@@ -1,0 +1,2 @@
+const randomString = Math.random().toString(30).slice(9);
+console.log(randomString);

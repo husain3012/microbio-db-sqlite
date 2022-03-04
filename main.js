@@ -14,6 +14,7 @@ function createWindow() {
     icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
+      
     },
   });
 

@@ -1,3 +1,4 @@
+const Op = require("sequelize").Op;
 const Sample = require("../models/sample.model");
 const axios = require("axios");
 const SLR = require("ml-regression").SLR;
@@ -15,16 +16,21 @@ exports.bacteriaAntibiogram = async (req, res) => {
   }
   let bacteria = req.body.bacteria;
 
-  Sample.find({ createdAt: { $gte: startDate, $lte: endDate } }).exec((err, result) => {
+  try {
+    const samples = await Sample.findAll({ where: { createdAt: { [Op.between]: [startDate, endDate] } } });
+
     let atb_data = {};
-    if (result.length > 0) {
-      result.forEach((sample) => {
+    if (samples.length > 0) {
+      samples.forEach((sample) => {
         calculateAntibiogram(sample, bacteria, atb_data);
       });
     }
+    console.log(atb_data);
 
     return res.json(atb_data);
-  });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 };
 
 exports.trendAnalysis = async (req, res) => {
@@ -38,12 +44,15 @@ exports.trendAnalysis = async (req, res) => {
   for (let i = req.body.startYear; i <= req.body.endYear; i++) {
     if (i <= currentYear.getFullYear()) {
       years.push(i);
-    } else {
-      futureYears.push(i);
+    }else{
+      break;
     }
   }
+  console.log(years);
 
-  Sample.find({ createdAt: { $gte: startYear, $lte: endYear } }).exec((err, result) => {
+  try {
+    const result = await Sample.findAll({ where: { createdAt: { [Op.between]: [startYear, endYear ]} } });
+    console.log(result);
     let atb_data = {};
     if (result.length > 0) {
       years.forEach((year) => {
@@ -56,20 +65,12 @@ exports.trendAnalysis = async (req, res) => {
       });
     }
     let atb_trend = { ...atb_data };
-    var list_of_atbs = Object.keys(atb_data[years[0]]);
-    list_of_atbs.forEach((atb) => {
-      let reg = getRegression(atb_data, years, atb);
-      for (let i = 0; i < futureYears.length; i++) {
-        let predictedValue = reg.predict(futureYears[i]);
-        atb_trend[futureYears[i]] = {
-          ...atb_trend[futureYears[i]],
-          [atb]: { sus: predictedValue, total: 1, isPredicted: true },
-        };
-      }
-    });
+    console.log(atb_trend);
 
     return res.json(atb_trend);
-  });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 };
 
 const calculateAntibiogram = (sample, bacteria, atb_data) => {
@@ -115,18 +116,18 @@ const calculateAntibiogram = (sample, bacteria, atb_data) => {
   }
 };
 
-function getRegression(atb_data, years, atb) {
-  let inputs = [];
-  let outputs = [];
-  for (let i = 0; i < years.length - 1; i++) {
-    inputs.push(years[i]);
-  }
-  inputs.forEach((year) => {
-    if (atb_data[year][atb]) {
-      outputs.push(atb_data[year][atb].sus / atb_data[year][atb].total);
-    } else {
-      outputs.push(0);
-    }
-  });
-  return new SLR(inputs, outputs);
-}
+// function getRegression(atb_data, years, atb) {
+//   let inputs = [];
+//   let outputs = [];
+//   for (let i = 0; i < years.length - 1; i++) {
+//     inputs.push(years[i]);
+//   }
+//   inputs.forEach((year) => {
+//     if (atb_data[year][atb]) {
+//       outputs.push(atb_data[year][atb].sus / atb_data[year][atb].total);
+//     } else {
+//       outputs.push(0);
+//     }
+//   });
+//   return new SLR(inputs, outputs);
+// }

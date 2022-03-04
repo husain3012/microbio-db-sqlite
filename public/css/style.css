@@ -12,7 +12,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #f6f6f6;
+  background-color: #fff;
 }
 a,
 a:hover {
@@ -21,8 +21,9 @@ a:hover {
 }
 
 .shadow-card {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   border-radius: 5px;
+  background-color: #fff;
   padding: 20px;
 }
 .input-group-text {
@@ -45,10 +46,8 @@ div.dataTables_wrapper {
 }
 
 .list-details {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-
-
 
 /* update notification */
 

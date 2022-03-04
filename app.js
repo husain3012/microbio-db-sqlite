@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const axios = require("axios");
-const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const sampleRoute = require("./routes/sample.routes");
@@ -14,6 +13,29 @@ const cookieParser = require("cookie-parser");
 var LocalStorage = require("node-localstorage").LocalStorage;
 var localStorage = new LocalStorage("./sessionData");
 const morgan = require("morgan");
+const db = require("./utils/database");
+const User = require("./models/auth.model");
+// const Sensitivity = require("./models/sensitivity.model");
+
+// connect to database
+// Sample.hasOne(Sensitivity);
+db.sync()
+  .then( () => {
+    console.log("Database connected");
+    // create default user if not exists
+    User.findOne({ where: { username: "admin" } }).then(async(user) => {
+      if (!user) {
+        const defaultUser = await User.create({
+          username: "admin",
+          password: "admin",
+          level: 0,
+        });
+        console.log("Default user created", defaultUser);
+      }
+    });
+  })
+  .catch((err) => console.log(err));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -23,28 +45,24 @@ var util = require("util");
 var log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
 var log_stdout = process.stdout;
 
-console.log = function (d) {
-  //
-  log_file.write(util.format(d) + "\n");
-  log_stdout.write(util.format(d) + "\n");
-};
-mongoose
-  .connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("DB connected"))
-  .catch((err) => {
-    console.log(err);
-    
-    
-  });
+if (process.env.NODE_ENV === "dev") {
+  app.use(morgan("dev"));
+} else {
+  console.log = function (d) {
+    log_file.write(util.format(d) + "\n");
+    log_stdout.write(util.format(d) + "\n");
+  };
+  app.use(
+    morgan("common", {
+      stream: fs.createWriteStream("./access.log", { flags: "a" }),
+    })
+  );
+}
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  morgan("common", {
-    stream: fs.createWriteStream("./access.log", { flags: "a" }),
-  })
-);
+
 app.use(cookieParser());
 
 app.use(function (req, res, next) {
@@ -242,11 +260,10 @@ app.get("/printReport/:sample_id", requireAuth, (req, res) => {
 
       axios.get(serverRoot + "/api/sample/report/" + req.params.sample_id).then((print) => {
         if (response.status) {
-          res.redirect("/")
+          res.redirect("/");
           // res.render("print_report", { sample: response.data.data, staphylococcusData, streptococussData, gramNegativeData, pseudomonasData, printed: print.data.filename, user: req.user });
         }
       });
-      
     });
   });
 });

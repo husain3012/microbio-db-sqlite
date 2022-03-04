@@ -1,10 +1,13 @@
+const Op = require("sequelize").Op;
+
 const Sample = require("../models/sample.model");
 var LocalStorage = require("node-localstorage").LocalStorage;
 var localStorage = new LocalStorage("./sessionData");
 const axios = require("axios");
 const { dialog } = require("electron");
-const phantomjs = require('phantomjs-prebuilt')
+const phantomjs = require("phantomjs-prebuilt");
 const pdf = require("html-pdf");
+const { nanoid } = require("nanoid");
 
 exports.createSample = async (req, res) => {
   let level = parseInt(localStorage.getItem("level"));
@@ -13,8 +16,8 @@ exports.createSample = async (req, res) => {
       message: "Unauthorized!",
     });
   }
-  const sample = new Sample({
-    sample_id: req.body.sampleId,
+  const newSample = {
+    sample_id: req.body.sampleId || nanoid(),
     patientName: req.body.patientName,
     age: req.body.age,
     sex: req.body.sex,
@@ -25,55 +28,60 @@ exports.createSample = async (req, res) => {
     physician: req.body.physician,
     diagnosis: req.body.diagnosis,
     examRequired: req.body.examRequired,
-  });
-  sample.save((err, result) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send(err);
-    } else {
-      return res.json({
-        status: true,
-        message: "New entry created!",
-        data: result,
-      });
-    }
-  });
+  };
+  try {
+    const sample = await Sample.create(newSample);
+    return res.status(201).json({
+      status: true,
+      message: "Sample created successfully!",
+      data: sample,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
 };
 
 exports.updateSample = async (req, res) => {
   const sample_id = req.body.sample_id;
   delete req.body.sample_id;
-  Sample.findOneAndUpdate({ sample_id: sample_id }, { $set: { ...req.body } }, (err, data) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    if (data) {
-      return res.json({
-        status: true,
-        message: "Sample updated!",
-        data: data,
-      });
-    }
-  });
+  // update sample
+  try {
+    const sample = await Sample.update(req.body, {
+      where: { sample_id: sample_id },
+    });
+    return res.status(201).json({
+      status: true,
+      message: "Sample updated successfully!",
+      data: sample,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
 };
 
 exports.getSample = async (req, res) => {
   console.log(req.params);
-  Sample.findOne({ sample_id: req.params.sampleId }, (err, result) => {
-    if (err) {
-      return res.status(500).send(err);
-    } else if (!result) {
-      return res.status(404).json({
-        message: "Sample not found!",
-      });
-    } else {
-      return res.json({
-        status: true,
-        message: "Sample found!",
-        data: result,
-      });
-    }
-  });
+  try {
+    const sample = await Sample.findOne({
+      where: { sample_id: req.params.sampleId },
+    });
+    return res.status(201).json({
+      status: true,
+      message: "Sample found successfully!",
+      data: sample,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: error.message,
+    });
+  }
 };
 
 exports.getByDate = async (req, res) => {
@@ -88,20 +96,23 @@ exports.getByDate = async (req, res) => {
     endDate = new Date(req.query.endDate);
   }
 
-  Sample.find({ createdAt: { $gte: startDate, $lte: endDate } })
-    .limit(req.query.limit || 1000)
-    .sort({ createdAt: -1 })
-    .exec((err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      }
-      return res.json({
-        status: true,
-        message: result.length + " records retrieved!",
-        data: result,
-      });
+  try {
+    const foundSamples = await Sample.findAll({
+      where: {
+        createdAt: { [Op.between]: [startDate, endDate] },
+      },
+      limit: req.query.limit || 1000,
+      order: [["createdAt", "DESC"]],
     });
+    return res.json({
+      status: true,
+      message: foundSamples.length + " records retrieved!",
+      data: foundSamples,
+    });
+  } catch (error) {
+    console.log(err);
+    return res.status(500).send(err);
+  }
 };
 
 exports.generateReport = async (req, res) => {
@@ -145,8 +156,8 @@ exports.findSample = async (req, res) => {
   let searchFields = {};
   // Validate name
   if (req.body.patientName) {
-    let patientName = new RegExp(req.body.patientName, "i");
-    searchFields = { ...searchFields, patientName: patientName };
+    let patientName = "%" + req.body.patientName.split(" ").join("%") + "%";
+    searchFields = { ...searchFields, patientName: { [Op.like]: patientName } };
   }
   // Validate ID
   if (req.body.sample_id) {
@@ -168,7 +179,7 @@ exports.findSample = async (req, res) => {
         ageFrom = ageTo;
         ageTo = req.body.ageFrom;
       }
-      searchFields = { ...searchFields, age: { $gte: ageFrom, $lte: ageTo } };
+      searchFields = { ...searchFields, age: { [Op.between]: [ageFrom, ageTo] } };
     } else {
       // If ageTo has not been entered
       searchFields = { ...searchFields, age: ageFrom };
@@ -186,10 +197,10 @@ exports.findSample = async (req, res) => {
         recievedFrom = recievedTo;
         recievedTo = req.body.specimenDateFrom;
       }
-      searchFields = { ...searchFields, createdAt: { $gte: recievedFrom, $lte: recievedTo } };
+      searchFields = { ...searchFields, createdAt: { [Op.between]: [new Date(recievedFrom), new Date(recievedTo)] } };
     } else {
       // If recievedTo has not been entered
-      searchFields = { ...searchFields, createdAt: { $gte: `${recievedFrom}T00:00:00.000Z`, $lte: `${recievedFrom}T23:59:59.999Z` } };
+      searchFields = { ...searchFields, createdAt: { [Op.between]: [new Date(recievedFrom), new Date()] } };
     }
   }
   // Validate Dept
@@ -198,7 +209,8 @@ exports.findSample = async (req, res) => {
   }
   // Validate Physician/ Surgeon
   if (req.body.physician) {
-    searchFields = { ...searchFields, physician: new RegExp(req.body.physician, "i") };
+    let physician = "%" + req.body.physician + "%";
+    searchFields = { ...searchFields, physician: { [Op.like]: physician } };
   }
   // Validate Specimen
   if (req.body.specimen) {
@@ -216,19 +228,23 @@ exports.findSample = async (req, res) => {
     }
   }
   // Now send this data to database and perform the search
-  Sample.find(searchFields)
-    .limit(req.query.limit || 1000)
-    .sort({ createdAt: -1 })
-    .exec((err, result) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      return res.json({
-        status: true,
-        message: result.length + " records retrieved!",
-        data: result,
-      });
+  console.log(searchFields);
+  try {
+    const found_samples = await Sample.findAll({
+      where: searchFields,
+      order: [["createdAt", "DESC"]],
+      limit: req.query.limit || 1000,
     });
+    console.log(found_samples);
+    return res.json({
+      status: true,
+      message: found_samples.length + " records retrieved!",
+      data: found_samples,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(err);
+  }
 };
 
 exports.randomSampleGen = async (req, res) => {
@@ -236,7 +252,7 @@ exports.randomSampleGen = async (req, res) => {
   let i;
   const sex = ["f", "m", "o"],
     specimen = ["puss", "blood", "urine"];
-  const dept = ["Surgery", "xxxx", "yyyy"],
+  const dept = ["microbiology", "pathology", "forensicMed", "medicine", "neuroSurgery", "obstetricsGynecology", "ophthalmology", "orthopaedicSurgery", "pediatrics", "radiology", "vascularSurgery", "other"],
     sensitivityArr = ["S", "I", "R"];
   const names = ["Adrak", "Lahsun", "Doraemon", "Chota Bheem", "Raju", "Mirchi", "Doc Oct", "May Parker", "Uncle Ben"];
   let date,
@@ -250,17 +266,17 @@ exports.randomSampleGen = async (req, res) => {
     let createdDate = new Date();
     createdDate.setMonth(createdDate.getMonth() - Math.floor(Math.random() * 48));
     createdDate.setMonth(createdDate.getMonth() - Math.floor(Math.random() * 25));
-    let bacterias = ["Staphylococcus", "Staphylococcus2", "Staphylococcus3"];
+    let bacteria = ["staphylococcus", "staphylococcus2", "staphylococcus3"];
 
     sensitivity = {
       growthTime: Math.floor(Math.random() * 60),
       aerobic: true,
       anaerobic: false,
       bacterialCount: Math.floor(Math.random() * 1000),
-      staphylococcusName: bacterias[Math.floor(Math.random() * bacterias.length)],
+      staphylococcusName: bacteria[Math.floor(Math.random() * bacteria.length)],
       staphylococcusPanel: staphPanel,
-      streptococcussName: "",
-      streptococcussPanel: [],
+      streptococcusName: "",
+      streptococcusPanel: [],
       gramNegativeName: "",
       gramNegativePanel: [],
       pseudomonasName: "Pseudomonas",
@@ -314,10 +330,6 @@ exports.randomSampleGen = async (req, res) => {
         antib: "G",
         sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
       },
-      // {
-      //   antib: "Tob",
-      //   sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
-      // },
       {
         antib: "Ak",
         sensitivity: sensitivityArr[Math.floor(Math.random() * sensitivityArr.length)],
@@ -328,31 +340,29 @@ exports.randomSampleGen = async (req, res) => {
       },
     ];
     const sample = {
-      sample_id: new Date().getTime() + (i + 1) * (i + 1) * 10000000,
+      sample_id: createdDate.getFullYear() + "_" + nanoid(10),
       patientName: names[Math.floor(Math.random() * names.length)],
       age: 10 + Math.floor(Math.random() * 90),
       sex: sex[Math.floor(Math.random() * sex.length)],
-      // cadsNumber: req.body.cadsNumber,
       createdAt: createdDate,
       specimen: specimen[Math.floor(Math.random() * specimen.length)],
       sampleDate: date,
       department: dept[Math.floor(Math.random() * dept.length)],
       physician: names[Math.floor(Math.random() * names.length)],
-      // diagnosis: req.body.diagnosis,
+      sensitivity: sensitivity,
       examRequired: "Analysis",
       progress: "growth",
-      sensitivity: sensitivity,
     };
     randomSamples.push(sample);
   }
-  Sample.insertMany(randomSamples, (err, result) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
+  try {
+    const newSample = await Sample.bulkCreate(randomSamples);
     return res.json({
       status: true,
-      message: result.length + " records inserted!",
-      data: result,
+      message: count + " samples created successfully!",
     });
-  });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
 };
