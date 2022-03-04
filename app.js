@@ -17,7 +17,7 @@ const db = require("./utils/database");
 const User = require("./models/auth.model");
 const fs = require("fs");
 const util = require("util");
-const log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
+const log_file = fs.createWriteStream("./debug.log", { flags: "w" });
 const log_stdout = process.stdout;
 
 if (process.env.NODE_ENV === "dev") {
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "dev") {
   };
   app.use(
     morgan("common", {
-      stream: fs.createWriteStream(__dirname + "/access.log", { flags: "a" }),
+      stream: fs.createWriteStream("./access.log", { flags: "a" }),
     })
   );
 }
