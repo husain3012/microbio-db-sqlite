@@ -15,6 +15,22 @@ var localStorage = new LocalStorage("./sessionData");
 const morgan = require("morgan");
 const db = require("./utils/database");
 const User = require("./models/auth.model");
+if (process.env.NODE_ENV === "dev") {
+  app.use(morgan("dev"));
+} else {
+  console.log = function (d) {
+    log_file.write(util.format(d) + "\n");
+    log_stdout.write(util.format(d) + "\n");
+  };
+  app.use(
+    morgan("common", {
+      stream: fs.createWriteStream("./access.log", { flags: "a" }),
+    })
+  );
+}
+
+
+
 // const Sensitivity = require("./models/sensitivity.model");
 
 // connect to database
@@ -33,6 +49,7 @@ db.sync()
         console.log("Default user created", defaultUser);
       }
     });
+    console
   })
   .catch((err) => console.log(err));
 
@@ -45,19 +62,6 @@ var util = require("util");
 var log_file = fs.createWriteStream(__dirname + "/debug.log", { flags: "w" });
 var log_stdout = process.stdout;
 
-if (process.env.NODE_ENV === "dev") {
-  app.use(morgan("dev"));
-} else {
-  console.log = function (d) {
-    log_file.write(util.format(d) + "\n");
-    log_stdout.write(util.format(d) + "\n");
-  };
-  app.use(
-    morgan("common", {
-      stream: fs.createWriteStream("./access.log", { flags: "a" }),
-    })
-  );
-}
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
