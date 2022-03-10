@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const { app, BrowserWindow, ipcMain } = require("electron");
-const { autoUpdater } = require('electron-updater');
+const { autoUpdater } = require("electron-updater");
 
 const server = require("./app"); //ADD THIS
 
@@ -14,8 +14,11 @@ function createWindow() {
     icon: __dirname + "/icon.ico",
     webPreferences: {
       nodeIntegration: true,
-      
     },
+  });
+
+  mainWindow.once("ready-to-show", () => {
+    autoUpdater.checkForUpdatesAndNotify();
   });
 
   // mainWindow.webContents.openDevTools();
@@ -45,21 +48,20 @@ app.on("activate", function () {
   }
 });
 
-
-ipcMain.on('app_version', (event) => {
-  event.sender.send('app_version', { version: app.getVersion() });
+ipcMain.on("app_version", (event) => {
+  event.sender.send("app_version", { version: app.getVersion() });
 });
 
-
-autoUpdater.on('update-available', () => {
-  mainWindow.webContents.send('update_available');
+autoUpdater.on("update-available", () => {
+  mainWindow.webContents.send("update_available");
 });
-autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
+autoUpdater.on("update-downloaded", () => {
+  mainWindow.webContents.send("update_downloaded");
 });
-ipcMain.on('restart_app', () => {
+ipcMain.on("restart_app", () => {
   autoUpdater.quitAndInstall();
 });
+
 
 // try {
 //   require('electron-reloader')(module)
