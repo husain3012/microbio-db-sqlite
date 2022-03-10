@@ -3,9 +3,6 @@
   "version": "1.0.3",
   "description": "System to store sample records and generate reports for microbiology department",
   "main": "main.js",
-  "build": {
-    "icon": "build/icon.ico"
-  },
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
