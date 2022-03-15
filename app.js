@@ -83,7 +83,7 @@ app.get("/", (req, res) => {
     .get("https://api.github.com/repos/husain3012/microbio-db-sqlite/releases/latest")
     .then(function (response) {
       var version = response.data.tag_name;
-      var currentVersion = "1.0.34";
+      var currentVersion = "1.0.4";
       var updateAvailable = false;
       var release_url = response.data.html_url;
 
