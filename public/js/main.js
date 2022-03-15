@@ -1,25 +1,28 @@
+const { default: axios } = require("axios");
+
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
 
-const notification = document.getElementById("notification");
-const message = document.getElementById("message");
-const restartButton = document.getElementById("restart-button");
-ipcRenderer.on("update_available", () => {
-  ipcRenderer.removeAllListeners("update_available");
-  message.innerText = "A new update is available. Downloading now...";
-  notification.classList.remove("hidden");
-});
-ipcRenderer.on("update_downloaded", () => {
-  ipcRenderer.removeAllListeners("update_downloaded");
-  message.innerText = "Update Downloaded. It will be installed on restart. Restart now?";
-  restartButton.classList.remove("hidden");
-  notification.classList.remove("hidden");
-});
+axios
+  .get("https://api.github.com/repos/husain3012/microbio-db-sqlite/releases/latest")
+  .then(function (response) {
+    var version = response.data.tag_name;
+    var currentVersion = app.getVersion();
+    var updateAvailable = false;
+    var release_url = response.data.html_url;
 
-function closeNotification() {
-  notification.classList.add("hidden");
-}
-function restartApp() {
-  ipcRenderer.send("restart_app");
-}
+    if (version !== currentVersion) {
+      updateAvailable = true;
+    }
+
+    if (updateAvailable) {
+      alert("A new version of Microbio DB is available. Please update to version " + version + " to continue using Microbio DB., or click 'OK' to download the latest version.");
+      window.open(release_url, "_blank");
+    } else {
+      $("#update-available").hide();
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
