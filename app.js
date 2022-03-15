@@ -79,7 +79,31 @@ cors;
 const serverRoot = "http://localhost:" + (process.env.PORT || "3000");
 
 app.get("/", (req, res) => {
-  res.redirect("/records");
+  axios
+    .get("https://api.github.com/repos/husain3012/microbio-db-sqlite/releases/latest")
+    .then(function (response) {
+      var version = response.data.tag_name;
+      var currentVersion = "1.0.34";
+      var updateAvailable = false;
+      var release_url = response.data.html_url;
+
+
+      if (version !== currentVersion) {
+        updateAvailable = true;
+      }
+      if (updateAvailable) {
+        res.render("update", {
+          updateAvailable: updateAvailable,
+          release_url: release_url,
+        });
+        
+      } else {
+        res.redirect("/records");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 });
 
 app.get("/records", requireAuth, (req, res) => {

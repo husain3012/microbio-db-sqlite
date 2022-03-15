@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+
+<script>
+  // copy link to clipboard on click
+  const copyLink = (e) => {
+    const link = document.getElementById("link");
+    link.select();
+    document.execCommand("copy");
+    e.target.innerText = "Copied!";
+  };
+</script>
+
+<% if(updateAvailable){ %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Update Available!</strong>
+  <a href="<%=release_url %> " type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">CLICK TO DOWNLOAD</span>
+  </a>
+  <br />
+  <p><%=release_url %></p>
+</div>
+<% } %> <%- include("partials/footer") %>

@@ -1,6 +1,6 @@
 {
   "name": "microbiology-db",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "System to store sample records and generate reports for microbiology department",
   "main": "main.js",
   "scripts": {

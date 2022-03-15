@@ -1,6 +1,8 @@
 <%-include('partials/header')%> <%-include('partials/navbar')%>
 <link rel="stylesheet" href="/css/home.css" />
 
+
+
 <div class="container">
   <br />
   <br />
@@ -35,9 +37,7 @@
       <h1><span class="sample-count"><%= records.length %></span> Record(s) Fetched</h1>
       <!-- Sort -->
       <div class="dropdown">
-        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">
-          Sort
-        </button>
+        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="sortMenuBtn">Sort</button>
         <div class="dropdown-menu" id="sortMenu">
           <button class="sort form-label dropdown-item" data-sort="date">Date</button>
           <button class="sort form-label dropdown-item" data-sort="sample-date">Sample Date</button>
@@ -45,8 +45,7 @@
           <button class="sort form-label dropdown-item" data-sort="age">Age</button>
           <button class="sort form-label dropdown-item" data-sort="sample-id">ID</button>
         </div>
-      </div>  
-
+      </div>
     </div>
     <!-- Filters -->
     <div id="filters">
@@ -139,8 +138,7 @@
     <br />
   </div>
 </div>
-<%-include("partials/bottom-menu") %> <%-include("partials/footer") %>
-<%-include("partials/searchModal") %>
+<%-include("partials/bottom-menu") %> <%-include("partials/footer") %> <%-include("partials/searchModal") %>
 
 <script type="text/javascript" src="js/filters.js"></script>
 <script type="text/javascript" src="js/sort.js"></script>
