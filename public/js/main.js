@@ -17,7 +17,7 @@ axios
     }
 
     if (updateAvailable) {
-      alert("A new version of Microbio DB is available. Please update to version " + version + " to continue using Microbio DB., or click 'OK' to download the latest version.");
+      alert("A new version of Microbio DB is available. Ckick OK to update to " + version + "");
       window.open(release_url, "_blank");
     } else {
       $("#update-available").hide();
